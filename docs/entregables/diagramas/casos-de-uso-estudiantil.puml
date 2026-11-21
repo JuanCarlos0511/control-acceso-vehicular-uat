@@ -1,0 +1,39 @@
+@startuml casos-de-uso-estudiantil
+!pragma layout smetana
+skinparam defaultFontName "DejaVu Sans"
+skinparam defaultFontSize 12
+skinparam shadowing false
+skinparam actorStyle awesome
+skinparam usecase {
+  BackgroundColor #FFFFFF
+  BorderColor #1F3864
+}
+skinparam rectangle {
+  BorderColor #1F3864
+  FontStyle bold
+}
+left to right direction
+
+actor "Alumno" as AL
+actor "Revisor de\nControl Vehicular" as RV
+actor "Portal de alumnos\nUAT" as UAT
+actor "REPUVE" as REP
+
+rectangle "Registro vehicular estudiantil (AppSheet + backend de validación)" {
+  usecase "CU-10 Confirmar inscripción\ncon cuenta institucional" as CU10
+  usecase "CU-11 Enviar solicitud\nde registro vehicular" as CU11
+  usecase "Validar documentos\nautomáticamente" as VAL
+  usecase "CU-12 Revisar solicitud\ny publicar resultado" as CU12
+  usecase "Consultar estado\ny pase QR" as EST
+  usecase "Emitir pase QR" as PASE
+}
+
+AL --> CU10
+AL --> CU11
+AL --> EST
+RV --> CU12
+CU10 --> UAT
+CU11 ..> VAL : <<include>>
+VAL --> REP
+CU12 ..> PASE : <<include>>
+@enduml

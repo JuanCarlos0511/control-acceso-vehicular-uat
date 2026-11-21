@@ -1,0 +1,79 @@
+@startuml modelo-datos-estudiantil
+!pragma layout smetana
+skinparam defaultFontName "DejaVu Sans"
+skinparam defaultFontSize 11
+skinparam shadowing false
+skinparam linetype ortho
+skinparam class {
+  BackgroundColor #FFFFFF
+  BorderColor #1F3864
+  HeaderBackgroundColor #E8ECF4
+}
+hide circle
+hide methods
+
+entity "Alumnos" as alumnos {
+  * Correo : texto <<PK>>
+  --
+  Matricula : texto
+  NombreCompleto : texto
+  Activo : booleano
+  Programa : texto
+  SituacionUAT : texto
+  VerificadoUAT : fecha y hora
+}
+
+entity "Solicitudes" as solicitudes {
+  * SolicitudId : texto <<PK>>
+  --
+  Correo : texto <<FK>>
+  FechaEnvio : fecha y hora
+  Placa : texto
+  NIV : texto (17)
+  FotoINE : imagen
+  FotoINEReverso : imagen
+  FotoTarjeta : imagen
+  AvisoLeido : booleano
+}
+
+entity "Revisiones" as revisiones {
+  * SolicitudId : texto <<PK, FK>>
+  --
+  Identidad : texto
+  INE : texto
+  Tarjeta : texto
+  REPUVE : texto
+  NIVConsultado : texto
+  FechaREPUVE : fecha y hora
+  Decision : EN_REVISION | DEVOLVER | APROBAR
+  Revisor : correo
+  FechaPublicacion : fecha y hora
+}
+
+entity "Resultados" as resultados {
+  * SolicitudId : texto <<PK, FK>>
+  --
+  Correo : texto
+  Estado : texto
+  Indicacion : texto
+  ActualizadoEn : fecha y hora
+}
+
+entity "Pases" as pases {
+  * PaseId : texto <<PK>>
+  --
+  SolicitudId : texto <<FK>>
+  Correo : texto
+  Placa : texto
+  Codigo : texto (firmado)
+  QR : imagen
+  EmitidoEn : fecha y hora
+  VenceEn : fecha y hora
+  Estado : ACTIVO | REVOCADO
+}
+
+alumnos ||--o{ solicitudes : "envía"
+solicitudes ||--o| revisiones : "se revisa en"
+solicitudes ||--o| resultados : "publica"
+solicitudes ||--o{ pases : "genera"
+@enduml

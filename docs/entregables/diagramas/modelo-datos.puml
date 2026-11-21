@@ -1,0 +1,87 @@
+@startuml modelo-datos
+!pragma layout smetana
+skinparam defaultFontName "DejaVu Sans"
+skinparam defaultFontSize 11
+skinparam shadowing false
+skinparam linetype ortho
+skinparam class {
+  BackgroundColor #FFFFFF
+  BorderColor #1F3864
+  HeaderBackgroundColor #E8ECF4
+}
+hide circle
+hide methods
+
+entity "Casetas" as casetas {
+  * id : texto <<PK>>
+  --
+  nombre : texto
+  ubicacion : texto
+  activa : booleano
+}
+
+entity "Usuarios" as usuarios {
+  * correo : texto <<PK>>
+  --
+  nombre : texto
+  rol : ADMIN | SUPERVISOR | GUARDIA
+  casetaId : texto <<FK>>
+  activo : booleano
+}
+
+entity "Personas" as personas {
+  * id : texto <<PK>>
+  --
+  nombre : texto
+  tipo : ESTUDIANTE | DOCENTE |
+         ADMINISTRATIVO | VISITANTE
+  identificador : texto (matrícula o n.º empleado)
+  telefono : texto
+  activo : booleano
+  creadoEn : fecha y hora
+}
+
+entity "Vehiculos" as vehiculos {
+  * placa : texto <<PK>>
+  --
+  personaId : texto <<FK>>
+  marca : texto
+  modelo : texto
+  color : texto
+  autorizado : booleano
+  creadoEn : fecha y hora
+}
+
+entity "Movimientos" as movimientos {
+  * id : texto <<PK>>
+  --
+  tipo : ENTRADA | SALIDA
+  placa : texto
+  fechaHora : fecha y hora (servidor)
+  casetaId : texto <<FK>>
+  tipoPersona : texto
+  personaId : texto <<FK>> (opcional)
+  nombrePersona : texto
+  vehiculoRegistrado : booleano
+  autorizado : booleano
+  motivo : texto
+  observaciones : texto
+  registradoPor : texto <<FK>>
+}
+
+entity "Bitacora" as bitacora {
+  fechaHora : fecha y hora
+  usuario : texto <<FK>>
+  accion : texto
+  resultado : OK | DENEGADO
+  detalle : texto
+}
+
+personas ||--o{ vehiculos : "posee"
+vehiculos |o--o{ movimientos : "se registra en"
+personas |o--o{ movimientos : "aparece en"
+casetas ||--o{ movimientos : "ocurre en"
+casetas |o--o{ usuarios : "asignada a"
+usuarios ||--o{ movimientos : "registra"
+usuarios ||--o{ bitacora : "genera"
+@enduml

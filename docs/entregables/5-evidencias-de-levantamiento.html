@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Evidencias de Levantamiento de Requisitos</title>
+<link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+<section class="portada">
+  <div class="nombre-documento">Evidencias de Levantamiento de Requisitos · Control de Acceso Vehicular UAT CUTM Sur</div>
+  <img class="logos" src="img/logos-uat-fit.png" alt="Universidad Autónoma de Tamaulipas y Facultad de Ingeniería Tampico">
+  <div class="institucion">UNIVERSIDAD AUTÓNOMA DE TAMAULIPAS</div>
+  <div class="dependencia">Facultad de Ingeniería Tampico · Centro Universitario Sur</div>
+  <div class="dependencia">Ingeniería en Sistemas Computacionales</div>
+  <div class="titulo">Sistema de Control de Acceso Vehicular<br>para la UAT CUTM Sur</div>
+  <div class="subtitulo">Solución basada en Google Apps Script y Google Sheets</div>
+  <div><span class="tipo">Evidencias de levantamiento de requisitos</span></div>
+  <table class="datos">
+    <tr><th>Evento</th><td>Concurso Hackatón · Facultad de Ingeniería Tampico</td></tr>
+    <tr><th>Equipo</th><td>Juan José Santiago Cruz<br>Jared Said Constantino Lemus<br>Juan Carlos Guzmán Antonio<br>Jocelyin Mateo Saldierna<br>Roberto Campillo Martínez</td></tr>
+    <tr><th>Versión</th><td>1.0</td></tr>
+  </table>
+  <div class="lugar">Tampico, Tamaulipas · 21 de noviembre de 2026</div>
+</section>
+
+<h1>Índice</h1>
+<nav class="indice">
+  <ol>
+    <li><a href="#s1">1. Introducción</a>
+      <ol>
+        <li><a href="#s1-1">1.1 Objetivo del levantamiento</a></li>
+        <li><a href="#s1-2">1.2 Metodología</a></li>
+        <li><a href="#s1-3">1.3 Plan de entrevistas</a></li>
+      </ol></li>
+    <li><a href="#s2">2. Entrevistas</a>
+      <ol>
+        <li><a href="#s2-1">2.1 Entrevista E1: personal de seguridad de las casetas</a></li>
+        <li><a href="#s2-2">2.2 Entrevista E2: responsables administrativos</a></li>
+      </ol></li>
+    <li><a href="#s3">3. Análisis del proceso actual</a>
+      <ol>
+        <li><a href="#s3-1">3.1 Proceso actual</a></li>
+        <li><a href="#s3-2">3.2 Problemática identificada</a></li>
+      </ol></li>
+    <li><a href="#s4">4. Fotografías</a></li>
+    <li><a href="#s5">5. Bitácoras</a>
+      <ol>
+        <li><a href="#s5-1">5.1 Bitácora del levantamiento</a></li>
+        <li><a href="#s5-2">5.2 Formatos y documentos observados</a></li>
+      </ol></li>
+    <li><a href="#s6">6. Trazabilidad de las entrevistas a los requisitos</a></li>
+    <li><a href="#anexo-a">Anexo A. Cuestionario de entrevistas</a></li>
+  </ol>
+</nav>
+
+<!-- ============================================================ -->
+<h1 id="s1">1. Introducción</h1>
+
+<h2 id="s1-1">1.1 Objetivo del levantamiento</h2>
+<p>Comprender el proceso real de registro y control de acceso vehicular en las tres casetas del campus UAT CUTM Sur, identificar la información que se captura, los casos especiales y las restricciones de operación, y obtener los requisitos del sistema directamente de quienes operan y administran el servicio.</p>
+
+<h2 id="s1-2">1.2 Metodología</h2>
+<ul>
+  <li><strong>Cuestionario por grupo de interés.</strong> Se preparó un cuestionario para el personal de seguridad que opera las casetas y otro para los responsables administrativos del proceso (Anexo A).</li>
+  <li><strong>Entrevistas semiestructuradas.</strong> Las preguntas del cuestionario guiaron la conversación; las respuestas se registraron en notas de campo y aquí se presentan redactadas, sin alterar su contenido. Por privacidad, se omiten los nombres de las personas entrevistadas.</li>
+  <li><strong>Observación del proceso.</strong> La entrevista al personal de caseta se realizó en la caseta principal durante el horario de mayor afluencia, lo que permitió observar la revisión visual y la comunicación por radio.</li>
+  <li><strong>Registro fotográfico.</strong> Se fotografiaron la caseta, la zona donde se tramita el permiso vehicular y el aviso con los requisitos del tarjetón (secciones 4 y 5.2).</li>
+  <li><strong>Análisis.</strong> Cada hallazgo se convirtió en uno o más requisitos con identificador y origen (E1 o E2) en la Especificación de Requisitos de Software (sección <a href="#s6">6</a>). Las preguntas sin respuesta se registran como pendientes.</li>
+</ul>
+
+<h2 id="s1-3">1.3 Plan de entrevistas</h2>
+<table>
+  <caption>Plan y estado de las entrevistas</caption>
+  <thead><tr><th style="width:7%">ID</th><th>Grupo</th><th style="width:10%">Preguntas</th><th style="width:14%">Fecha</th><th style="width:28%">Entrevistador(es)</th><th style="width:13%">Estado</th></tr></thead>
+  <tbody>
+    <tr><td class="id">E1</td><td>Personal de seguridad que opera las casetas</td><td class="c">6</td><td>20/11/2026</td><td>Jocelyin Mateo Saldierna</td><td>Realizada</td></tr>
+    <tr><td class="id">E2</td><td>Responsables administrativos del proceso</td><td class="c">5</td><td>20/11/2026</td><td>Jocelyin Mateo Saldierna, Jared Said Constantino Lemus, Juan José Santiago Cruz</td><td>Realizada</td></tr>
+  </tbody>
+</table>
+
+<!-- ============================================================ -->
+<h1 id="s2">2. Entrevistas</h1>
+
+<h2 id="s2-1">2.1 Entrevista E1: personal de seguridad de las casetas</h2>
+<table class="ficha">
+  <caption>Datos de la entrevista E1</caption>
+  <tr><th>Objetivo</th><td>Conocer el procedimiento actual de registro de entradas y salidas vehiculares, la información que se captura, la forma de identificar el tipo de usuario, los horarios de mayor afluencia y los recursos con que cuentan las casetas.</td></tr>
+  <tr><th>Fecha</th><td>20 de noviembre de 2026, por la tarde</td></tr>
+  <tr><th>Lugar</th><td>Caseta principal, UAT CUTM Sur</td></tr>
+  <tr><th>Participantes</th><td><strong>Entrevistadora:</strong> Jocelyin Mateo Saldierna.<br><strong>Entrevistado(s):</strong> personal de seguridad de la caseta principal, encargado del registro de entradas y salidas.</td></tr>
+  <tr><th>Medio de registro</th><td>Notas de campo</td></tr>
+</table>
+
+<h3>Preguntas y respuestas</h3>
+<p class="pregunta">P1. ¿Cuál es el paso a paso exacto desde que un vehículo se detiene en la pluma hasta que se le permite el acceso o la salida?</p>
+<p class="respuesta">El guardia revisa visualmente el vehículo y a sus ocupantes y, a partir de ello, deduce el tipo de visita. Por ejemplo, si viajan un hombre mayor y una joven, supone que se trata de un padre y su hija. En el caso de los servicios de transporte por aplicación, los identifica porque los pasajeros viajan en el asiento trasero.</p>
+
+<p class="pregunta">P2. ¿Qué información específica anotan hoy en las hojas físicas y cuál consideran que les quita más tiempo escribir?</p>
+<p class="respuesta">Anotan la empresa, el asunto y el destino de la visita. El formato tiene otros datos, pero no suelen llenarlos porque los consideran poco relevantes; no precisaron cuáles son. No se obtuvo respuesta sobre el dato que más tiempo les toma escribir.</p>
+
+<p class="pregunta">P3. ¿Cómo identifican actualmente si quien conduce es estudiante, docente, administrativo o visitante externo?</p>
+<p class="respuesta">A docentes y estudiantes, por su credencial. A los visitantes externos les solicitan su tarjeta de entrada, que se tramita sin costo en la UAT. Además, se apoyan en la apreciación visual.</p>
+
+<p class="pregunta">P4. ¿En qué horarios del día se genera mayor congestionamiento en cada una de las tres casetas y cuánto tiempo máximo tienen para registrar un vehículo sin provocar filas?</p>
+<p class="respuesta">El mayor congestionamiento ocurre por las tardes, el mismo horario en que se realizó la entrevista. En esos momentos solo hacen una revisión visual rápida, por lo que no anotan todos los vehículos. No se precisaron diferencias entre las casetas ni un tiempo máximo por registro.</p>
+
+<p class="pregunta">P5. ¿Qué ocurre cuando llega un proveedor, un vehículo oficial, una ambulancia o un visitante sin cita previa? ¿Se registran distinto?</p>
+<p class="respuesta">Preguntan el motivo de la visita y lo confirman por radio con la central. En el caso de una ambulancia, preguntan el motivo y, si es urgente, la dejan pasar; normalmente la siguen mientras confirman que el motivo sea verdadero.</p>
+
+<p class="pregunta">P6. ¿Con qué equipo cuentan actualmente en las tres casetas y qué tan estable es la conexión a internet?</p>
+<p class="respuesta">No cuentan con un sistema automatizado: el registro se hace en papel y la comunicación con la central, por radio. No se obtuvo información sobre la conexión a internet en las casetas.</p>
+
+<div class="nota">
+  <p><strong>Conclusiones de E1</strong></p>
+  <ul>
+    <li>El proceso es manual: registro en papel y verificación por radio.</li>
+    <li>La identificación del tipo de usuario depende de la credencial y, en buena medida, de la apreciación visual del guardia, lo que genera falta de uniformidad.</li>
+    <li>En las horas pico de la tarde no se registran todos los vehículos, por lo que el histórico es incompleto.</li>
+    <li>Las visitas sin cita y las emergencias se confirman por radio, sin un registro de la verificación.</li>
+    <li>El registro digital debe ser rápido y con pocos campos obligatorios para no generar filas.</li>
+    <li>Quedan por confirmar la conectividad de cada caseta y el tiempo máximo aceptable por registro.</li>
+  </ul>
+</div>
+
+<h2 id="s2-2">2.2 Entrevista E2: responsables administrativos</h2>
+<table class="ficha">
+  <caption>Datos de la entrevista E2</caption>
+  <tr><th>Objetivo</th><td>Conocer quién administra el registro de vehículos, empleados y estudiantes, las reglas para autorizar vehículos y las necesidades de reportes, roles y bitácora del área administrativa.</td></tr>
+  <tr><th>Fecha</th><td>20 de noviembre de 2026</td></tr>
+  <tr><th>Lugar</th><td>Caseta principal, UAT CUTM Sur</td></tr>
+  <tr><th>Participantes</th><td><strong>Entrevistadores:</strong> Jocelyin Mateo Saldierna, Jared Said Constantino Lemus y Juan José Santiago Cruz.<br><strong>Entrevistado(s):</strong> personal del área administrativa del registro vehicular.</td></tr>
+  <tr><th>Medio de registro</th><td>Notas de campo por puntos clave</td></tr>
+</table>
+
+<h3>Preguntas y respuestas</h3>
+<p class="pregunta">P1. ¿Quién será el encargado de dar de alta, modificar o dar de baja los vehículos autorizados, empleados y estudiantes en el sistema? ¿Existe ya alguna base de datos en Excel que debamos importar?</p>
+<p class="respuesta">El registro de vehículos se realiza de forma presencial y el contacto responsable es el Ing. Carlos. El área cuenta con un programa en el que captura los datos del registro.</p>
+
+<p class="pregunta">P2. ¿Existe algún límite de vehículos registrados por estudiante o empleado? ¿Los permisos de acceso tienen vigencia?</p>
+<p class="respuesta">Se permite un solo tarjetón por persona; si la persona cambia de automóvil, el cambio se actualiza en el programa. El tarjetón tiene un nuevo diseño: blanco, con un correcaminos naranja. No se registró información sobre la vigencia de los permisos.</p>
+
+<p class="pregunta">P3. De los reportes solicitados, ¿qué filtros específicos necesitan y con qué frecuencia los consultan?</p>
+<p class="respuesta">No se registró respuesta en las notas de campo.</p>
+
+<p class="pregunta">P4. ¿Qué roles administrativos tendrán acceso al sistema mediante su cuenta institucional y qué acciones debería tener restringidas cada rol?</p>
+<p class="respuesta">No se registró respuesta en las notas de campo.</p>
+
+<p class="pregunta">P5. ¿Qué nivel de detalle necesitan en la bitácora de actividades del sistema?</p>
+<p class="respuesta">No se registró respuesta en las notas de campo.</p>
+
+<h3>Información adicional obtenida</h3>
+<ul>
+  <li>Los alumnos de primer semestre que aún no tienen credencial presentan su ficha de pago como comprobante.</li>
+  <li>Los conductores de vehículos externos dejan en la caseta una credencial o identificación al entrar, que se les devuelve al salir.</li>
+</ul>
+
+<div class="nota">
+  <p><strong>Conclusiones de E2</strong></p>
+  <ul>
+    <li>El alta de vehículos es presencial y está centralizada en un responsable, que captura los datos en un programa propio del área; esa información podría migrarse al sistema.</li>
+    <li>La regla de negocio es un tarjetón por persona; el cambio de vehículo lo registra la administración.</li>
+    <li>La credencial no siempre está disponible: en primer semestre se acepta la ficha de pago como comprobante.</li>
+    <li>Al visitante se le retiene una identificación durante su estancia, sin que quede un registro digital.</li>
+    <li>Quedan por definir con la administración la vigencia de los permisos, los filtros y la frecuencia de los reportes, los roles y el detalle de la bitácora. Para la versión 1.0 el equipo adoptó una propuesta (Especificación de Requisitos, secciones 2.4 y 3.5) que debe validarse con el área.</li>
+  </ul>
+</div>
+
+<!-- ============================================================ -->
+<h1 id="s3">3. Análisis del proceso actual</h1>
+<p>Con base en las entrevistas y la observación, el control de acceso vehicular actual se apoya en la revisión visual del guardia, el registro en papel y la comunicación por radio con la central.</p>
+
+<h2 id="s3-1">3.1 Proceso actual</h2>
+<ol>
+  <li>El vehículo llega a la pluma de la caseta.</li>
+  <li>El guardia revisa visualmente el vehículo y a sus ocupantes, y deduce el tipo de visita.</li>
+  <li>Identifica al conductor por su credencial (estudiante o docente) o, si es externo, por su tarjeta de entrada; también se apoya en la apreciación visual.</li>
+  <li>Si es un proveedor, un vehículo oficial, una emergencia o un visitante sin cita, pregunta el motivo y lo confirma por radio con la central.</li>
+  <li>Al conductor de un vehículo externo le retiene una credencial o identificación.</li>
+  <li>Cuando el tiempo lo permite, anota en la hoja física la empresa, el asunto y el destino.</li>
+  <li>Levanta la pluma y permite el acceso. A la salida del visitante, le devuelve su identificación.</li>
+</ol>
+<p>Por el lado administrativo, el registro de vehículos es presencial con el responsable del área, que captura los datos en un programa. Para obtener el tarjetón se entrega una copia del frente de la tarjeta de circulación, de la credencial de elector o un comprobante de domicilio, y de la credencial UAT; en su lugar, los alumnos pueden presentar el comprobante de pago y los empleados, su recibo de nómina (Figura 3). Se permite un solo tarjetón por persona y el cambio de vehículo se actualiza en el programa del área.</p>
+
+<h2 id="s3-2">3.2 Problemática identificada</h2>
+<table>
+  <caption>Problemas y consecuencias</caption>
+  <thead><tr><th style="width:38%">Problema</th><th>Consecuencia</th><th style="width:12%">Fuente</th></tr></thead>
+  <tbody>
+    <tr><td>El registro se hace en papel.</td><td>No hay consulta histórica, reportes ni estadísticas de acceso.</td><td>E1 P6</td></tr>
+    <tr><td>En horas pico (por la tarde) no se anotan todos los vehículos.</td><td>La información está incompleta justo cuando hay más movimiento.</td><td>E1 P4</td></tr>
+    <tr><td>El tipo de usuario se identifica en parte por apreciación visual.</td><td>Hay errores y cada guardia aplica un criterio distinto.</td><td>E1 P1, P3</td></tr>
+    <tr><td>Las verificaciones con la central se hacen por radio.</td><td>No queda evidencia de quién autorizó un acceso ni por qué.</td><td>E1 P5</td></tr>
+    <tr><td>Los datos de vehículos y personas están en el programa del área administrativa.</td><td>La caseta no puede validar una placa o un tarjetón al momento.</td><td>E2 P1</td></tr>
+    <tr><td>El trámite del tarjetón es presencial y requiere copias impresas de los documentos.</td><td>El solicitante debe acudir en horario de oficina y el área captura a mano los datos de cada copia.</td><td>E2, Figura 3</td></tr>
+    <tr><td>Al visitante se le retiene una identificación física.</td><td>No queda constancia digital de quién entró ni de la identificación que dejó.</td><td>E2</td></tr>
+    <tr><td>Las casetas no tienen un sistema automatizado y su conectividad no se ha confirmado.</td><td>Antes de implantar una solución digital hay que verificar la conexión en cada caseta.</td><td>E1 P6</td></tr>
+  </tbody>
+</table>
+
+<!-- ============================================================ -->
+<h1 id="s4">4. Fotografías</h1>
+<p>Fotografías tomadas durante el trabajo de campo en el campus UAT CUTM Sur, en noviembre de 2026.</p>
+<figure class="captura">
+  <img src="img/foto-caseta.jpg" alt="Caseta de control de acceso del campus" style="width:60%">
+  <figcaption>Caseta de control de acceso del campus, donde el registro se hace en papel y la comunicación con la central, por radio (entrevista E1).</figcaption>
+</figure>
+<figure class="captura">
+  <img src="img/foto-zona-registro.jpg" alt="Edificio donde se tramita el permiso vehicular" style="width:60%">
+  <figcaption>Zona donde se realiza el trámite presencial del permiso vehicular (tarjetón).</figcaption>
+</figure>
+<figure class="captura">
+  <img src="img/foto-requisitos-tarjeton.jpg" alt="Aviso con los requisitos para adquirir el tarjetón vehicular" style="height:16cm">
+  <figcaption>Aviso «Requisitos adquisición tarjetón vehicular» publicado en la zona de trámite. Las credenciales que aparecen son ejemplos del propio aviso.</figcaption>
+</figure>
+
+<!-- ============================================================ -->
+<h1 id="s5">5. Bitácoras</h1>
+
+<h2 id="s5-1">5.1 Bitácora del levantamiento</h2>
+<table>
+  <caption>Actividades del levantamiento de requisitos</caption>
+  <thead><tr><th style="width:15%">Fecha</th><th>Actividad</th><th style="width:34%">Resultado</th></tr></thead>
+  <tbody>
+    <tr><td>20/11/2026</td><td>Lectura y análisis de las bases del Hackatón.</td><td>Alcance funcional mínimo, entregables y ambigüedades a resolver.</td></tr>
+    <tr><td>20/11/2026</td><td>Elaboración del cuestionario de entrevistas (Anexo A).</td><td>11 preguntas: 6 para el personal de seguridad de las casetas y 5 para la administración.</td></tr>
+    <tr><td>20/11/2026</td><td>Entrevista E1 en la caseta principal, en horario de mayor afluencia.</td><td>Proceso actual, datos que se anotan, casos especiales y operación en papel y radio.</td></tr>
+    <tr><td>20/11/2026</td><td>Entrevista E2 con el área administrativa.</td><td>Responsable del registro, programa del área, regla de un tarjetón por persona, ficha de pago y retención de identificación de visitantes.</td></tr>
+    <tr><td>20/11/2026</td><td>Análisis de respuestas y redacción de requisitos.</td><td>Requisitos con origen E1 y E2; contrato de API entre interfaz y servidor.</td></tr>
+    <tr><td>21/11/2026</td><td>Validación de los requisitos contra el sistema construido.</td><td>Especificación de Requisitos de Software v1.0; requisitos diferidos a versiones futuras.</td></tr>
+    <tr><td>Nov. 2026</td><td>Registro fotográfico de la caseta, la zona de trámite y el aviso de requisitos del tarjetón.</td><td>Figuras 1 a 3; requisitos oficiales del tarjetón.</td></tr>
+  </tbody>
+</table>
+
+<h2 id="s5-2">5.2 Formatos y documentos observados</h2>
+<p>En la caseta, las visitas se anotan en hojas físicas con empresa, asunto y destino (entrevista E1). En la zona de trámite, el aviso de la Figura 3 indica los requisitos para adquirir el tarjetón vehicular:</p>
+<table>
+  <caption>Requisitos para adquirir el tarjetón vehicular, según el aviso publicado</caption>
+  <thead><tr><th style="width:6%">#</th><th>Documento</th><th style="width:34%">Alternativa</th></tr></thead>
+  <tbody>
+    <tr><td class="c">1</td><td>Tarjeta de circulación</td><td>—</td></tr>
+    <tr><td class="c">2</td><td>Credencial de elector</td><td>Comprobante de domicilio</td></tr>
+    <tr><td class="c">3</td><td>Credencial UAT (alumno)</td><td>Comprobante de pago</td></tr>
+    <tr><td class="c">4</td><td>Credencial UAT (docente o empleado)</td><td>Recibo de nómina</td></tr>
+  </tbody>
+</table>
+<p>Se entrega una copia de la parte frontal de cada documento. Estos requisitos coinciden con los que pide la solicitud en línea del registro vehicular estudiantil: tarjeta de circulación y credencial de elector, más la confirmación de inscripción con la cuenta de la UAT.</p>
+
+<!-- ============================================================ -->
+<h1 id="s6">6. Trazabilidad de las entrevistas a los requisitos</h1>
+<p>Cada hallazgo de las entrevistas se convirtió en uno o más requisitos de la Especificación de Requisitos de Software. Los que no forman parte de la versión 1.0 están registrados como requisitos para versiones futuras.</p>
+<table>
+  <caption>De los hallazgos a los requisitos</caption>
+  <thead><tr><th style="width:13%">Fuente</th><th>Hallazgo</th><th style="width:38%">Requisitos</th></tr></thead>
+  <tbody>
+    <tr><td>E1 P1, P3</td><td>El tipo de usuario se identifica por credencial y apreciación visual.</td><td>RF-004 (verificar la placa muestra el tipo del propietario), RF-020 (el guardia elige el tipo en una visita).</td></tr>
+    <tr><td>E1 P2</td><td>Se anotan empresa, asunto y destino de la visita.</td><td>RF-020 (nombre y motivo); RF-038 futura (identificación, empresa y destino por separado).</td></tr>
+    <tr><td>E1 P4</td><td>Por las tardes hay filas y no se anota todo.</td><td>RNF-007 y RNF-015 (registro en tres acciones y 10 segundos o menos), RF-013 (horarios de mayor afluencia).</td></tr>
+    <tr><td>E1 P5</td><td>Visitas sin cita y emergencias se confirman por radio.</td><td>RF-021 (advertir sin bloquear), RF-024 (nota del registro); RF-036 y RF-037 futuras (emergencias y verificación con la central).</td></tr>
+    <tr><td>E1 P6</td><td>Registro en papel y radio; conectividad sin confirmar.</td><td>RF-001, RF-002 y RF-018 (registro digital con bitácora), RNF-013 (verificar conexión antes de implantar).</td></tr>
+    <tr><td>E2 P1</td><td>El alta es presencial y los datos están en un programa del área.</td><td>RF-008 y RF-009 (catálogos en el portal), RF-027 y RF-028 (registro estudiantil en línea); RF-035 futura (importar desde el programa del área).</td></tr>
+    <tr><td>E2 P2</td><td>Un tarjetón por persona; el cambio de vehículo lo hace la administración.</td><td>RF-008 (desautorizar un vehículo y dar de alta otro); RF-033 y RF-034 futuras.</td></tr>
+    <tr><td>E2 (adicional)</td><td>En primer semestre se presenta la ficha de pago en lugar de la credencial.</td><td>RF-027 (la inscripción se confirma con la cuenta institucional, sin depender de la credencial física).</td></tr>
+    <tr><td>E2 (adicional)</td><td>Al visitante se le retiene una identificación.</td><td>RF-020 y RF-024 (datos de la visita y nota); RF-038 futura (registrar la identificación presentada).</td></tr>
+    <tr><td>Figura 3</td><td>Requisitos del tarjetón: tarjeta de circulación, credencial de elector y credencial UAT o comprobante de pago.</td><td>RF-028 (la solicitud en línea pide tarjeta de circulación e INE), RF-029 (prevalidación de esos documentos), RF-027 (inscripción confirmada con la cuenta de la UAT).</td></tr>
+    <tr><td>E2 P3 a P5</td><td>Sin respuesta: filtros de reportes, roles y detalle de bitácora.</td><td>RF-011 a RF-014, RF-016 a RF-019 según propuesta del equipo, pendiente de validar.</td></tr>
+  </tbody>
+</table>
+
+<!-- ============================================================ -->
+<h1 id="anexo-a">Anexo A. Cuestionario de entrevistas</h1>
+<p>Formato utilizado en las entrevistas. Cada entrevista registra objetivo, fecha, lugar, entrevistadores, entrevistados, respuestas y conclusiones.</p>
+
+<h3>A.1 Personal de seguridad de las casetas</h3>
+<ol>
+  <li>¿Cuál es el paso a paso exacto desde que un vehículo se detiene en la pluma hasta que se le permite el acceso o la salida?</li>
+  <li>¿Qué información específica anotan hoy en las hojas físicas y cuál consideran que les quita más tiempo escribir?</li>
+  <li>¿Cómo identifican actualmente si quien conduce es estudiante, docente, administrativo o visitante externo?</li>
+  <li>¿En qué horarios del día se genera mayor congestionamiento en cada una de las tres casetas y cuánto tiempo máximo tienen para registrar un vehículo sin provocar filas?</li>
+  <li>¿Qué ocurre cuando llega un proveedor, un vehículo oficial, una ambulancia o un visitante sin cita previa? ¿Se registran distinto?</li>
+  <li>¿Con qué equipo cuentan actualmente en las tres casetas y qué tan estable es la conexión a internet?</li>
+</ol>
+
+<h3>A.2 Responsables administrativos</h3>
+<ol>
+  <li>¿Quién será el encargado de dar de alta, modificar o dar de baja los vehículos autorizados, empleados y estudiantes en el sistema? ¿Existe ya alguna base de datos en Excel que debamos importar?</li>
+  <li>¿Existe algún límite de vehículos registrados por estudiante o empleado? ¿Los permisos de acceso tienen vigencia?</li>
+  <li>De los reportes solicitados, ¿qué filtros específicos necesitan y con qué frecuencia los consultan?</li>
+  <li>¿Qué roles administrativos tendrán acceso al sistema mediante su cuenta institucional y qué acciones debería tener restringidas cada rol?</li>
+  <li>¿Qué nivel de detalle necesitan en la bitácora de actividades del sistema?</li>
+</ol>
+
+</body>
+</html>

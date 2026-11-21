@@ -1,0 +1,746 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Especificación de Requisitos de Software</title>
+<link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+<section class="portada">
+  <div class="nombre-documento">Especificación de Requisitos de Software · Control de Acceso Vehicular UAT CUTM Sur</div>
+  <img class="logos" src="img/logos-uat-fit.png" alt="Universidad Autónoma de Tamaulipas y Facultad de Ingeniería Tampico">
+  <div class="institucion">UNIVERSIDAD AUTÓNOMA DE TAMAULIPAS</div>
+  <div class="dependencia">Facultad de Ingeniería Tampico · Centro Universitario Sur</div>
+  <div class="dependencia">Ingeniería en Sistemas Computacionales</div>
+  <div class="titulo">Sistema de Control de Acceso Vehicular<br>para la UAT CUTM Sur</div>
+  <div class="subtitulo">Solución basada en Google Apps Script y Google Sheets</div>
+  <div><span class="tipo">Especificación de Requisitos de Software</span></div>
+  <table class="datos">
+    <tr><th>Evento</th><td>Concurso Hackatón · Facultad de Ingeniería Tampico</td></tr>
+    <tr><th>Equipo</th><td>Juan José Santiago Cruz<br>Jared Said Constantino Lemus<br>Juan Carlos Guzmán Antonio<br>Jocelyin Mateo Saldierna<br>Roberto Campillo Martínez</td></tr>
+    <tr><th>Versión</th><td>1.0</td></tr>
+  </table>
+  <div class="lugar">Tampico, Tamaulipas · 21 de noviembre de 2026</div>
+</section>
+
+<h1 class="sin-salto" style="page-break-before: always">Control del documento</h1>
+<table class="ficha">
+  <caption>Datos del documento</caption>
+  <tr><th>Título</th><td>Especificación de Requisitos de Software (ERS) del Sistema de Control de Acceso Vehicular para la UAT CUTM Sur</td></tr>
+  <tr><th>Versión</th><td>1.0</td></tr>
+  <tr><th>Fecha</th><td>21 de noviembre de 2026</td></tr>
+  <tr><th>Estado</th><td>Versión para entrega</td></tr>
+  <tr><th>Normas de referencia</th><td>ISO/IEC/IEEE 29148, IEEE 830, ISO/IEC 25010</td></tr>
+  <tr><th>Documentos relacionados</th><td>Evidencias de levantamiento de requisitos · Manual de usuario · Contrato de API v1.1 (<code>docs/contrato-api.md</code> del repositorio)</td></tr>
+</table>
+<table>
+  <caption>Historial de versiones</caption>
+  <thead><tr><th style="width:12%">Versión</th><th style="width:18%">Fecha</th><th>Cambios</th></tr></thead>
+  <tbody>
+    <tr><td>0.1</td><td>20/11/2026</td><td>Borrador: introducción, entrevistas, situación actual, requisitos funcionales y no funcionales.</td></tr>
+    <tr><td>1.0</td><td>21/11/2026</td><td>Revisión contra el sistema construido. Se alinean los requisitos con el contrato de API y la interfaz, se separan los requisitos de versiones futuras, se agregan descripción general, casos de uso, diagramas, trazabilidad y el apartado de uso de inteligencia artificial. Las entrevistas pasan al documento de evidencias y los hechos que se citan de ellas se cotejan con las notas de campo.</td></tr>
+  </tbody>
+</table>
+
+<h1>Índice</h1>
+<nav class="indice">
+  <ol>
+    <li><a href="#s1">1. Introducción</a>
+      <ol>
+        <li><a href="#s1-1">1.1 Propósito</a></li>
+        <li><a href="#s1-2">1.2 Alcance</a></li>
+        <li><a href="#s1-3">1.3 Definiciones, acrónimos y abreviaturas</a></li>
+        <li><a href="#s1-4">1.4 Referencias</a></li>
+        <li><a href="#s1-5">1.5 Visión general del documento</a></li>
+      </ol></li>
+    <li><a href="#s2">2. Descripción general</a>
+      <ol>
+        <li><a href="#s2-1">2.1 Contexto y problemática</a></li>
+        <li><a href="#s2-2">2.2 Perspectiva del producto</a></li>
+        <li><a href="#s2-3">2.3 Funciones del producto</a></li>
+        <li><a href="#s2-4">2.4 Características de los usuarios</a></li>
+        <li><a href="#s2-5">2.5 Restricciones</a></li>
+        <li><a href="#s2-6">2.6 Suposiciones y dependencias</a></li>
+      </ol></li>
+    <li><a href="#s3">3. Requisitos funcionales</a>
+      <ol>
+        <li><a href="#s3-1">3.1 Operación en caseta</a></li>
+        <li><a href="#s3-2">3.2 Catálogos</a></li>
+        <li><a href="#s3-3">3.3 Consultas</a></li>
+        <li><a href="#s3-4">3.4 Reportes</a></li>
+        <li><a href="#s3-5">3.5 Seguridad y administración</a></li>
+        <li><a href="#s3-6">3.6 Registro vehicular estudiantil (módulo complementario)</a></li>
+        <li><a href="#s3-7">3.7 Requisitos identificados para versiones futuras</a></li>
+      </ol></li>
+    <li><a href="#s4">4. Requisitos no funcionales</a></li>
+    <li><a href="#s5">5. Casos de uso</a></li>
+    <li><a href="#s6">6. Diagramas</a>
+      <ol>
+        <li><a href="#s6-1">6.1 Diagramas de casos de uso</a></li>
+        <li><a href="#s6-2">6.2 Diagramas de actividades</a></li>
+        <li><a href="#s6-3">6.3 Modelo de datos (entidad-relación)</a></li>
+      </ol></li>
+    <li><a href="#s7">7. Matriz de trazabilidad</a></li>
+    <li><a href="#s8">8. Calidad y normas</a></li>
+    <li><a href="#anexo-a">Anexo A. Uso de inteligencia artificial</a></li>
+  </ol>
+</nav>
+
+<!-- ============================================================ -->
+<h1 id="s1">1. Introducción</h1>
+
+<h2 id="s1-1">1.1 Propósito</h2>
+<p>Este documento especifica los requisitos del Sistema de Control de Acceso Vehicular para la Universidad Autónoma de Tamaulipas, Centro Universitario Tampico-Madero Sur (UAT CUTM Sur). Describe qué debe hacer el sistema, con qué atributos de calidad y bajo qué restricciones, de modo que sirva como base común para el diseño, la construcción, la prueba y la aceptación del producto.</p>
+<p>Está dirigido al equipo de desarrollo, a los responsables administrativos del proceso de acceso vehicular, al personal de seguridad y de las casetas, y al jurado del concurso.</p>
+
+<h2 id="s1-2">1.2 Alcance</h2>
+<p>El sistema digitaliza el registro de entradas y salidas de vehículos en las tres casetas de acceso del campus, que hoy se hace en papel y con verificaciones por radio. Es una aplicación web publicada con Google Apps Script que usa Google Sheets como base de datos y se usa desde el celular (en la caseta) y desde la computadora (en la administración).</p>
+<table>
+  <caption>Alcance de la versión 1.0 por módulo</caption>
+  <thead><tr><th style="width:24%">Módulo</th><th>Funciones</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Operación en caseta</strong></td><td>Verificar una placa, registrar entradas y salidas con fecha, hora y caseta automáticas, registrar visitas de vehículos no registrados y avisar al guardia de situaciones irregulares sin detener el paso.</td></tr>
+    <tr><td><strong>Catálogos</strong></td><td>Vehículos autorizados, personas (estudiantes, docentes, administrativos y visitantes) y casetas.</td></tr>
+    <tr><td><strong>Consultas</strong></td><td>Historial de movimientos por placa, rango de fechas, caseta y tipo de usuario.</td></tr>
+    <tr><td><strong>Reportes</strong></td><td>Entradas y salidas por periodo, vehículos más frecuentes, horarios de mayor afluencia, tablero del día y exportación a Excel y PDF.</td></tr>
+    <tr><td><strong>Seguridad y administración</strong></td><td>Acceso con cuenta de Google, usuarios del sistema con tres roles, permisos verificados en el servidor y bitácora de actividades.</td></tr>
+    <tr><td><strong>Registro vehicular estudiantil</strong> (complementario)</td><td>El alumno confirma su inscripción, solicita el registro de su vehículo con fotos de su INE y su tarjeta de circulación, el sistema prevalida los documentos y el personal de Control Vehicular aprueba y emite un pase con código QR.</td></tr>
+  </tbody>
+</table>
+<p>Quedan fuera de la versión 1.0 los requisitos de la sección <a href="#s3-7">3.7</a>, entre ellos la regla de un tarjetón por persona, la importación de los datos del programa administrativo actual, la operación sin conexión y la lectura del pase QR desde la app de caseta.</p>
+
+<h2 id="s1-3">1.3 Definiciones, acrónimos y abreviaturas</h2>
+<table>
+  <caption>Definiciones</caption>
+  <thead><tr><th style="width:24%">Término</th><th>Definición</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Caseta</strong></td><td>Punto de control de entrada y salida de vehículos del campus. Hay tres.</td></tr>
+    <tr><td><strong>Movimiento</strong></td><td>Registro de una entrada o de una salida de un vehículo por una caseta, con fecha y hora del servidor.</td></tr>
+    <tr><td><strong>Tipo de usuario</strong> (tipo de persona)</td><td>Clasificación de quien conduce o es dueño del vehículo: Estudiante, Docente, Administrativo o Visitante. «Empleado» comprende Docente y Administrativo.</td></tr>
+    <tr><td><strong>Usuario del sistema</strong></td><td>Persona que opera el sistema con su cuenta de Google. No debe confundirse con el tipo de usuario.</td></tr>
+    <tr><td><strong>Rol</strong></td><td>Conjunto de permisos de un usuario del sistema: Administrador, Supervisor o Guardia.</td></tr>
+    <tr><td><strong>Turno</strong></td><td>Periodo en que un guardia opera la app desde una caseta. Al comenzarlo se fija la caseta de sus registros.</td></tr>
+    <tr><td><strong>Placa normalizada</strong></td><td>Placa en mayúsculas sin espacios, guiones ni puntos, de 4 a 10 caracteres (por ejemplo, «xyz-123-a» se guarda como «XYZ123A»).</td></tr>
+    <tr><td><strong>Vehículo autorizado</strong></td><td>Vehículo del catálogo marcado como autorizado para ingresar.</td></tr>
+    <tr><td><strong>Advertencia</strong></td><td>Aviso al guardia que no impide guardar el movimiento: vehículo no registrado, vehículo no autorizado, entrada duplicada o salida sin entrada.</td></tr>
+    <tr><td><strong>Bitácora</strong></td><td>Registro cronológico de accesos, cambios, exportaciones e intentos rechazados en el sistema.</td></tr>
+    <tr><td><strong>Tarjetón</strong></td><td>Distintivo físico de acceso vehicular que entrega la administración; el diseño vigente es blanco con un correcaminos naranja. Según la entrevista E2 se permite uno por persona.</td></tr>
+    <tr><td><strong>Pase QR</strong></td><td>Pase digital de acceso con código QR firmado que se emite al aprobar una solicitud de registro vehicular estudiantil.</td></tr>
+    <tr><td><strong>Padrón</strong></td><td>Lista de alumnos que confirmaron su inscripción con su cuenta institucional (hoja <code>Alumnos</code>).</td></tr>
+  </tbody>
+</table>
+<table>
+  <caption>Acrónimos y abreviaturas</caption>
+  <thead><tr><th style="width:24%">Sigla</th><th>Significado</th></tr></thead>
+  <tbody>
+    <tr><td>UAT · CUTM Sur</td><td>Universidad Autónoma de Tamaulipas · Centro Universitario Tampico-Madero Sur</td></tr>
+    <tr><td>ERS · SRS</td><td>Especificación de Requisitos de Software (<em>Software Requirements Specification</em>)</td></tr>
+    <tr><td>RF · RNF · CU</td><td>Requisito funcional · Requisito no funcional · Caso de uso</td></tr>
+    <tr><td>API</td><td>Interfaz de programación entre la interfaz web y el servidor</td></tr>
+    <tr><td>INE</td><td>Credencial para votar del Instituto Nacional Electoral</td></tr>
+    <tr><td>NIV</td><td>Número de identificación vehicular (17 caracteres)</td></tr>
+    <tr><td>REPUVE</td><td>Registro Público Vehicular</td></tr>
+    <tr><td>OCR · MRZ · CURP</td><td>Reconocimiento óptico de caracteres · Zona de lectura mecánica de la INE · Clave Única de Registro de Población</td></tr>
+    <tr><td>HK · E1 · E2 · EQ</td><td>Origen de un requisito: documento del Hackatón · entrevista al personal de seguridad de las casetas · entrevista a responsables administrativos · propuesta del equipo</td></tr>
+  </tbody>
+</table>
+
+<h2 id="s1-4">1.4 Referencias</h2>
+<ol>
+  <li>Facultad de Ingeniería Tampico, UAT. <em>Proyecto Hackatón: Sistema de Control de Acceso Vehicular para la UAT CUTM Sur mediante Google Apps Script y Google Sheets</em>. Noviembre de 2026.</li>
+  <li>ISO/IEC/IEEE 29148:2018. <em>Systems and software engineering — Life cycle processes — Requirements engineering</em>.</li>
+  <li>IEEE Std 830-1998. <em>IEEE Recommended Practice for Software Requirements Specifications</em>.</li>
+  <li>ISO/IEC 25010:2023. <em>Systems and software engineering — Systems and software Quality Requirements and Evaluation (SQuaRE) — Product quality model</em>.</li>
+  <li>Equipo del proyecto. <em>Evidencias de levantamiento de requisitos</em>, versión 1.0. Noviembre de 2026.</li>
+  <li>Equipo del proyecto. <em>Contrato de API v1.1</em> (<code>docs/contrato-api.md</code>) y documentación técnica del repositorio del proyecto.</li>
+</ol>
+
+<h2 id="s1-5">1.5 Visión general del documento</h2>
+<p>La sección 2 describe el contexto, la arquitectura, los usuarios y las restricciones. Las secciones 3 y 4 enumeran los requisitos funcionales y no funcionales. La sección 5 detalla los casos de uso y la sección 6 reúne los diagramas de casos de uso, de actividades y el modelo de datos. La sección 7 relaciona cada requisito con su origen, sus casos de uso y la acción del sistema que lo cumple. El Anexo A declara el uso de inteligencia artificial en el proyecto.</p>
+<p>Los identificadores RF-001 a RF-019 se conservan del contrato de API, que los cita, para mantener la trazabilidad entre este documento y el código. Por eso la numeración no sigue el orden de los módulos.</p>
+
+<!-- ============================================================ -->
+<h1 id="s2">2. Descripción general</h1>
+
+<h2 id="s2-1">2.1 Contexto y problemática</h2>
+<p>De acuerdo con las entrevistas al personal de seguridad que opera las casetas (E1) y a los responsables administrativos (E2), documentadas en el entregable de evidencias, el control de acceso vehicular actual es manual:</p>
+<ul>
+  <li>El guardia identifica el tipo de usuario por la credencial o por apreciación visual, pregunta el asunto y, cuando hay duda, lo confirma por radio con la central.</li>
+  <li>Al conductor de un vehículo externo se le retiene una credencial o identificación, que se le devuelve al salir.</li>
+  <li>En la hoja física anota empresa, asunto y destino de las visitas, y solo cuando el tiempo lo permite: en las horas pico de la tarde no se anotan todos los vehículos.</li>
+  <li>El alta de vehículos es presencial con el responsable administrativo, que captura los datos en un programa del área. Para el tarjetón se entregan copias de la tarjeta de circulación, la credencial de elector o un comprobante de domicilio, y la credencial UAT o, en su lugar, el comprobante de pago (alumnos) o el recibo de nómina (empleados). Se permite un tarjetón por persona.</li>
+  <li>Las casetas no tienen un sistema automatizado: el registro es en papel y la comunicación, por radio. La conectividad de las casetas no se ha confirmado.</li>
+</ul>
+<p>En consecuencia, no hay consulta histórica, reportes ni estadísticas; la información está incompleta en los momentos de mayor movimiento; cada guardia aplica un criterio distinto, la caseta no puede validar un vehículo con los datos de la administración y no queda evidencia de quién autorizó un acceso ni por qué.</p>
+
+<h2 id="s2-2">2.2 Perspectiva del producto</h2>
+<p>El producto es nuevo y está compuesto por un sistema principal y un módulo complementario.</p>
+<table>
+  <caption>Componentes del producto</caption>
+  <thead><tr><th style="width:24%">Componente</th><th>Descripción</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Interfaz web</strong></td><td>Dos aplicaciones: la <strong>app de caseta</strong>, diseñada para celular, y el <strong>portal de administración</strong>, para computadora. Están construidas con React y TypeScript y se compilan a un solo archivo HTML cada una, que Apps Script sirve con <code>HtmlService</code>.</td></tr>
+    <tr><td><strong>Servidor</strong></td><td>Web App de Google Apps Script con una sola función pública, <code>api({accion, datos})</code>, que identifica al usuario, valida sus permisos, ejecuta la acción, registra la bitácora y responde siempre con un sobre <code>{ok, datos | error}</code>. Las acciones y sus reglas están definidas en el contrato de API v1.1.</td></tr>
+    <tr><td><strong>Base de datos</strong></td><td>Un archivo de Google Sheets con una hoja por entidad: <code>Casetas</code>, <code>Usuarios</code>, <code>Personas</code>, <code>Vehiculos</code>, <code>Movimientos</code> y <code>Bitacora</code> (sección <a href="#s6-3">6.3</a>).</td></tr>
+    <tr><td><strong>Registro vehicular estudiantil</strong> (complementario)</td><td>App de AppSheet sobre su propia hoja de Google Sheets, un sitio de registro de alumnos, un backend en Go y un analizador de documentos en Python (OCR y consulta a REPUVE), publicados en un servidor del equipo. Emite el pase QR del alumno.</td></tr>
+  </tbody>
+</table>
+<p>El sistema principal cumple la restricción de las bases: Google Apps Script, Google Sheets e interfaz web. El módulo complementario automatiza el trámite de alta de vehículos de alumnos, que según la entrevista E2 hoy es presencial. Su integración con la caseta (leer el pase QR) está planeada para una versión futura (RF-039).</p>
+
+<h2 id="s2-3">2.3 Funciones del producto</h2>
+<ul>
+  <li><strong>En la caseta:</strong> comenzar y terminar turno, verificar una placa, registrar entradas, salidas y visitas, agregar una nota y ver los registros del día en esa caseta.</li>
+  <li><strong>En el portal:</strong> tablero del día, consultas con filtros, reportes con gráficas, exportación a Excel y PDF, catálogos de vehículos, personas y casetas, usuarios del sistema y bitácora.</li>
+  <li><strong>Para alumnos:</strong> confirmar la inscripción, solicitar el registro del vehículo, consultar el estado de la solicitud y mostrar el pase QR.</li>
+</ul>
+
+<h2 id="s2-4">2.4 Características de los usuarios</h2>
+<table>
+  <caption>Usuarios del sistema y roles</caption>
+  <thead><tr><th style="width:18%">Rol</th><th style="width:26%">Quién lo usa</th><th>Puede</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Guardia</strong></td><td>Personal de caseta, desde un celular, muchas veces compartido.</td><td>Registrar entradas y salidas, verificar placas y consultar movimientos.</td></tr>
+    <tr><td><strong>Supervisor</strong></td><td>Personal de seguridad o coordinación.</td><td>Solo lectura: consultas, reportes, catálogos y bitácora.</td></tr>
+    <tr><td><strong>Administrador</strong></td><td>Responsable administrativo del proceso.</td><td>Todo, incluidos los catálogos y los usuarios del sistema.</td></tr>
+    <tr><td><strong>Alumno</strong></td><td>Estudiante que solicita el registro de su vehículo (módulo complementario).</td><td>Confirmar su inscripción, enviar solicitudes y ver su resultado y su pase.</td></tr>
+    <tr><td><strong>Revisor</strong></td><td>Personal de Control Vehicular (módulo complementario).</td><td>Revisar expedientes y publicar el resultado desde la hoja privada.</td></tr>
+  </tbody>
+</table>
+<p>Los guardias no requieren conocimientos técnicos. La operación debe resolverse con la placa y pocos toques, porque en las horas pico hay filas (E1).</p>
+
+<h2 id="s2-5">2.5 Restricciones</h2>
+<ul>
+  <li>Plataforma obligatoria: Google Apps Script, Google Sheets e interfaz web (bases del Hackatón).</li>
+  <li>Las cuentas institucionales de la UAT son de Microsoft, por lo que el prototipo usa cuentas de Google. Al publicarse desde una cuenta personal, Google solo entrega al servidor el correo del propietario; las demás cuentas se identifican con una clave anónima que Google asigna a cada cuenta.</li>
+  <li>En el prototipo, una cuenta nueva se da de alta automáticamente como Administrador para facilitar la evaluación; la propiedad del script <code>ROL_ALTA_AUTOMATICA</code> cambia ese rol o desactiva el alta automática.</li>
+  <li>Límites de Apps Script: hasta 6 minutos por ejecución y entre 0.5 y 2 segundos por llamada desde la interfaz.</li>
+  <li>El sistema requiere conexión a internet en las casetas; la conectividad actual no se confirmó en la entrevista E1.</li>
+  <li>Módulo complementario: AppSheet gratuito admite hasta 10 usuarios de prueba. El portal de REPUVE está protegido con reCAPTCHA, por lo que la consulta automática puede terminar como «no disponible» y pasar a revisión humana.</li>
+  <li>Tratamiento de datos personales conforme a la Ley General de Protección de Datos Personales en Posesión de Sujetos Obligados, con aviso de privacidad institucional.</li>
+</ul>
+
+<h2 id="s2-6">2.6 Suposiciones y dependencias</h2>
+<ul>
+  <li>Las casetas contarán con un celular con datos móviles o con acceso a la red del campus antes de implantar el sistema.</li>
+  <li>Para la implantación definitiva, la institución publicaría el sistema con una cuenta de Google Workspace propia o integraría su servicio de identidad institucional.</li>
+  <li>Un vehículo no autorizado se registra con advertencia y la decisión de dejarlo pasar sigue el protocolo de seguridad vigente. Si la institución decide bloquearlo, el cambio está previsto en el contrato de API.</li>
+  <li>El módulo complementario depende del portal de alumnos de la UAT, de REPUVE y de un servidor externo a Google. Pedir la contraseña institucional fuera de un sitio de la UAT requiere autorización de la universidad.</li>
+</ul>
+
+<!-- ============================================================ -->
+<h1 id="s3">3. Requisitos funcionales</h1>
+<p>Cada requisito indica su prioridad (Alta: indispensable para la operación; Media: aporta valor y puede posponerse) y su origen (HK, E1, E2 o EQ, ver la tabla de acrónimos). La sección <a href="#s7">7</a> relaciona cada requisito con sus casos de uso y con la acción del servidor que lo cumple.</p>
+
+<h2 id="s3-1">3.1 Operación en caseta</h2>
+<table>
+  <caption>Requisitos de operación en caseta</caption>
+  <thead><tr><th class="id">ID</th><th style="width:22%">Requisito</th><th>Descripción</th><th style="width:9%">Prioridad</th><th style="width:8%">Origen</th></tr></thead>
+  <tbody>
+    <tr><td class="id">RF-001</td><td>Registrar entrada vehicular</td><td>Registrar la entrada de un vehículo con placa, caseta, tipo de usuario, fecha y hora, y el usuario que la registró.</td><td>Alta</td><td>HK</td></tr>
+    <tr><td class="id">RF-002</td><td>Registrar salida vehicular</td><td>Registrar la salida de un vehículo. Si tiene una entrada abierta, mostrar el tiempo de permanencia y conservar los datos de la visita.</td><td>Alta</td><td>HK</td></tr>
+    <tr><td class="id">RF-020</td><td>Registrar visita</td><td>Si la placa no está en el catálogo, pedir el tipo de usuario (Visitante por omisión), el nombre del conductor y el motivo de la visita.</td><td>Alta</td><td>HK, E1</td></tr>
+    <tr><td class="id">RF-021</td><td>Advertir sin bloquear</td><td>Avisar al guardia cuando el vehículo no está registrado, no está autorizado, ya tenía una entrada abierta o sale sin entrada registrada. El movimiento se guarda de todos modos.</td><td>Media</td><td>EQ, E1</td></tr>
+    <tr><td class="id">RF-022</td><td>Fecha y hora automáticas</td><td>Asignar a cada movimiento la fecha y hora del servidor en la zona del campus. El operador no puede capturarlas ni editarlas.</td><td>Alta</td><td>HK</td></tr>
+    <tr><td class="id">RF-023</td><td>Identificar la caseta</td><td>Asignar a cada movimiento la caseta del turno: la asignada al guardia o la que elige al comenzar el turno. Un guardia con caseta asignada no puede registrar en otra.</td><td>Alta</td><td>HK</td></tr>
+    <tr><td class="id">RF-024</td><td>Agregar una nota</td><td>Permitir una observación de hasta 500 caracteres en el registro, por ejemplo para dejar constancia de una verificación por radio con la central.</td><td>Media</td><td>E1</td></tr>
+    <tr><td class="id">RF-025</td><td>Vehículos dentro del campus</td><td>Mostrar los vehículos cuya última operación es una entrada y su tiempo de permanencia.</td><td>Media</td><td>EQ</td></tr>
+  </tbody>
+</table>
+
+<h2 id="s3-2">3.2 Catálogos</h2>
+<table>
+  <caption>Requisitos de catálogos</caption>
+  <thead><tr><th class="id">ID</th><th style="width:22%">Requisito</th><th>Descripción</th><th style="width:9%">Prioridad</th><th style="width:8%">Origen</th></tr></thead>
+  <tbody>
+    <tr><td class="id">RF-008</td><td>Administrar vehículos</td><td>Dar de alta, editar y desautorizar vehículos con placa (única), propietario, marca, modelo, color y estado de autorización. La placa no se modifica: para otro vehículo se da de alta uno nuevo.</td><td>Alta</td><td>HK</td></tr>
+    <tr><td class="id">RF-009</td><td>Administrar personas</td><td>Dar de alta, editar y desactivar estudiantes, docentes, administrativos y visitantes con nombre, tipo, matrícula o número de empleado (obligatorio y único salvo para visitantes) y teléfono.</td><td>Alta</td><td>HK</td></tr>
+    <tr><td class="id">RF-010</td><td>Administrar casetas</td><td>Dar de alta, editar y desactivar casetas con nombre, ubicación y estado. El sistema se instala con las tres casetas del campus.</td><td>Alta</td><td>HK</td></tr>
+  </tbody>
+</table>
+<p>Ningún registro se borra: los catálogos se desactivan para conservar el historial de movimientos.</p>
+
+<h2 id="s3-3">3.3 Consultas</h2>
+<table>
+  <caption>Requisitos de consultas</caption>
+  <thead><tr><th class="id">ID</th><th style="width:22%">Requisito</th><th>Descripción</th><th style="width:9%">Prioridad</th><th style="width:8%">Origen</th></tr></thead>
+  <tbody>
+    <tr><td class="id">RF-003</td><td>Consultar historial</td><td>Listar los movimientos del más reciente al más antiguo, con paginación y filtros combinables (placa, fechas, caseta, tipo de usuario y tipo de movimiento).</td><td>Alta</td><td>HK</td></tr>
+    <tr><td class="id">RF-004</td><td>Consultar por placa</td><td>En el portal, filtrar por placa completa o parcial. En la caseta, al verificar una placa, mostrar propietario, tipo de usuario, matrícula o número de empleado, vehículo, autorización, si está dentro del campus y su último movimiento, y proponer el registro que corresponde.</td><td>Alta</td><td>HK, E1</td></tr>
+    <tr><td class="id">RF-005</td><td>Consultar por rango de fechas</td><td>Filtrar los movimientos entre dos fechas, ambas incluidas.</td><td>Alta</td><td>HK</td></tr>
+    <tr><td class="id">RF-006</td><td>Consultar por acceso</td><td>Filtrar los movimientos por caseta.</td><td>Alta</td><td>HK</td></tr>
+    <tr><td class="id">RF-007</td><td>Consultar por tipo de usuario</td><td>Filtrar por Estudiante, Docente, Administrativo o Visitante.</td><td>Alta</td><td>HK</td></tr>
+  </tbody>
+</table>
+
+<h2 id="s3-4">3.4 Reportes</h2>
+<table>
+  <caption>Requisitos de reportes</caption>
+  <thead><tr><th class="id">ID</th><th style="width:22%">Requisito</th><th>Descripción</th><th style="width:9%">Prioridad</th><th style="width:8%">Origen</th></tr></thead>
+  <tbody>
+    <tr><td class="id">RF-011</td><td>Entradas y salidas por periodo</td><td>Totalizar entradas y salidas por día, semana o mes, con desglose por caseta y por tipo de usuario, para un rango de hasta 366 días.</td><td>Alta</td><td>HK</td></tr>
+    <tr><td class="id">RF-012</td><td>Vehículos más frecuentes</td><td>Listar las placas con más entradas en el periodo (10 por omisión, hasta 100), incluidas las no registradas.</td><td>Alta</td><td>HK</td></tr>
+    <tr><td class="id">RF-013</td><td>Horarios de mayor afluencia</td><td>Mostrar los movimientos por hora del día y por día de la semana, un mapa de calor día por hora y el horario pico, con filtro por caseta.</td><td>Alta</td><td>HK, E1</td></tr>
+    <tr><td class="id">RF-014</td><td>Exportar a Excel y PDF</td><td>Descargar consultas y reportes en Excel y en PDF (hasta 5000 filas, con aviso si se recortó). Cada exportación queda en la bitácora.</td><td>Alta</td><td>HK</td></tr>
+    <tr><td class="id">RF-026</td><td>Tablero del día</td><td>Mostrar entradas, salidas, vehículos dentro, visitas, afluencia por hora, totales por caseta, últimos movimientos y vehículos con más tiempo dentro.</td><td>Media</td><td>EQ</td></tr>
+  </tbody>
+</table>
+
+<h2 id="s3-5">3.5 Seguridad y administración</h2>
+<table>
+  <caption>Requisitos de seguridad y administración</caption>
+  <thead><tr><th class="id">ID</th><th style="width:22%">Requisito</th><th>Descripción</th><th style="width:9%">Prioridad</th><th style="width:8%">Origen</th></tr></thead>
+  <tbody>
+    <tr><td class="id">RF-015</td><td>Iniciar y cerrar sesión</td><td>Entrar con una cuenta de Google, sin contraseñas propias del sistema, y cerrar la sesión desde la app («Terminar turno» o «Cerrar sesión»).</td><td>Alta</td><td>HK</td></tr>
+    <tr><td class="id">RF-016</td><td>Administrar usuarios del sistema</td><td>Dar de alta, editar y desactivar usuarios con correo, nombre, rol y caseta asignada. Impedir que el sistema quede sin un administrador activo y que un usuario se desactive a sí mismo.</td><td>Alta</td><td>HK</td></tr>
+    <tr><td class="id">RF-017</td><td>Restringir funciones por rol</td><td>Permitir a cada rol solo las acciones que le corresponden, verificándolo en el servidor en cada operación, y mostrar en la interfaz solo esas opciones.</td><td>Alta</td><td>HK</td></tr>
+    <tr><td class="id">RF-018</td><td>Registrar la bitácora</td><td>Guardar fecha y hora, usuario, acción, resultado y detalle de cada acceso, cambio, exportación e intento rechazado.</td><td>Alta</td><td>HK</td></tr>
+    <tr><td class="id">RF-019</td><td>Consultar la bitácora</td><td>Consultar la bitácora con filtros por fechas, usuario y actividad.</td><td>Alta</td><td>HK</td></tr>
+  </tbody>
+</table>
+
+<h2 id="s3-6">3.6 Registro vehicular estudiantil (módulo complementario)</h2>
+<table>
+  <caption>Requisitos del registro vehicular estudiantil</caption>
+  <thead><tr><th class="id">ID</th><th style="width:22%">Requisito</th><th>Descripción</th><th style="width:9%">Prioridad</th><th style="width:8%">Origen</th></tr></thead>
+  <tbody>
+    <tr><td class="id">RF-027</td><td>Confirmar inscripción</td><td>El alumno inicia sesión con su correo o matrícula y contraseña de la UAT. El sistema consulta su situación en el portal de alumnos y, si está inscrito, lo da de alta en el padrón con su nombre oficial. Si la UAT lo reporta de baja, lo desactiva.</td><td>Media</td><td>EQ</td></tr>
+    <tr><td class="id">RF-028</td><td>Solicitar registro vehicular</td><td>El alumno del padrón envía placa, NIV de 17 caracteres, foto del frente de la INE, foto del reverso (opcional), foto de la tarjeta de circulación y la aceptación del aviso de privacidad.</td><td>Media</td><td>E2, EQ</td></tr>
+    <tr><td class="id">RF-029</td><td>Prevalidar documentos</td><td>Leer las fotos con OCR; verificar en la INE la MRZ con sus dígitos de control, la CURP, la vigencia y el nombre contra el padrón; comparar el NIV y la placa de la tarjeta con la solicitud y consultar REPUVE por NIV. El resultado prellena la revisión.</td><td>Media</td><td>EQ</td></tr>
+    <tr><td class="id">RF-030</td><td>Revisar y publicar resultado</td><td>El revisor abre la revisión desde la hoja privada y publica «En revisión», «Devolver» o «Aprobar». Aprobar exige alumno activo, identidad, INE y tarjeta validadas, y REPUVE sin reporte para el mismo NIV. No se aprueba dos veces la misma placa o NIV.</td><td>Media</td><td>EQ</td></tr>
+    <tr><td class="id">RF-031</td><td>Consultar el estado</td><td>El alumno ve el estado de cada solicitud (pendiente, en revisión, requiere atención o aprobada) y la indicación del revisor.</td><td>Media</td><td>EQ</td></tr>
+    <tr><td class="id">RF-032</td><td>Emitir y revocar el pase QR</td><td>Al aprobar, emitir un pase con código QR firmado que contiene el identificador del pase, la placa y la fecha, sin datos personales, con vigencia configurable. El pase se revoca desde la hoja.</td><td>Media</td><td>EQ</td></tr>
+  </tbody>
+</table>
+
+<h2 id="s3-7">3.7 Requisitos identificados para versiones futuras</h2>
+<p>Estos requisitos surgieron del levantamiento y se registran para no perderlos, pero no forman parte de la versión 1.0. La columna «En la versión 1.0» indica cómo se cubre hoy la necesidad, cuando aplica.</p>
+<table>
+  <caption>Requisitos para versiones futuras</caption>
+  <thead><tr><th class="id">ID</th><th style="width:22%">Requisito</th><th>Descripción</th><th style="width:26%">En la versión 1.0</th><th style="width:7%">Origen</th></tr></thead>
+  <tbody>
+    <tr><td class="id">RF-033</td><td>Un tarjetón por persona</td><td>Impedir que una persona tenga más de un vehículo activo asociado a su tarjetón.</td><td>Una persona puede tener varios vehículos.</td><td>E2</td></tr>
+    <tr><td class="id">RF-034</td><td>Cambiar el vehículo del tarjetón</td><td>Reemplazar el vehículo asociado a un tarjetón conservando el historial del anterior.</td><td>Se desautoriza el vehículo anterior y se da de alta el nuevo; el historial se conserva.</td><td>E2</td></tr>
+    <tr><td class="id">RF-035</td><td>Importar datos administrativos</td><td>Cargar personas y vehículos desde el programa en que el área administrativa registra hoy los datos.</td><td>Alta individual desde el portal.</td><td>E2</td></tr>
+    <tr><td class="id">RF-036</td><td>Acceso de emergencia</td><td>Registro rápido de ambulancias o emergencias con datos mínimos, completable después.</td><td>Se registra como visita con una nota.</td><td>E1</td></tr>
+    <tr><td class="id">RF-037</td><td>Verificación con la central</td><td>Campo específico para indicar si el acceso se verificó por radio con la central.</td><td>Se deja constancia con la nota (RF-024).</td><td>E1</td></tr>
+    <tr><td class="id">RF-038</td><td>Datos ampliados de visita</td><td>Capturar por separado empresa, destino y la identificación que el visitante deja en la caseta, y marcar su devolución a la salida.</td><td>Se captura nombre y motivo; la identificación puede anotarse en la nota.</td><td>E1, E2</td></tr>
+    <tr><td class="id">RF-039</td><td>Leer el pase QR en la caseta</td><td>Escanear el pase QR del alumno y verificar firma, vigencia y revocación antes de registrar.</td><td>El backend ya ofrece la verificación; falta integrarla al contrato y a la app.</td><td>EQ</td></tr>
+    <tr><td class="id">RF-040</td><td>Operación sin conexión</td><td>Capturar registros sin conexión y enviarlos después marcados como diferidos, con la hora real del suceso.</td><td>Sin conexión se usa el formato en papel.</td><td>EQ</td></tr>
+  </tbody>
+</table>
+
+<!-- ============================================================ -->
+<h1 id="s4">4. Requisitos no funcionales</h1>
+<p>Los requisitos no funcionales se agrupan según las características de calidad de ISO/IEC 25010:2023. Los valores de tiempo son metas propuestas por el equipo a partir de las entrevistas y deben confirmarse en una prueba con el personal de las casetas.</p>
+
+<table>
+  <caption>Seguridad (ISO/IEC 25010: seguridad)</caption>
+  <thead><tr><th class="id">ID</th><th>Requisito</th><th style="width:34%">Criterio de aceptación</th></tr></thead>
+  <tbody>
+    <tr><td class="id">RNF-001</td><td>Solo entran cuentas autenticadas por Google. El servidor identifica la cuenta (por su correo o por la clave anónima de Google); la interfaz nunca envía la identidad.</td><td>Sin sesión de Google la aplicación no abre; con el alta automática desactivada, una cuenta no registrada ve la pantalla «Sin acceso».</td></tr>
+    <tr><td class="id">RNF-002</td><td>Los permisos se verifican en el servidor en cada llamada; ocultar opciones en la interfaz no basta.</td><td>Una acción no permitida responde «Permiso denegado» y queda en la bitácora.</td></tr>
+    <tr><td class="id">RNF-003</td><td>La hoja de cálculo no se comparte con guardias ni supervisores; solo acceden por la aplicación.</td><td>Un guardia no puede abrir la hoja directamente.</td></tr>
+    <tr><td class="id">RNF-004</td><td>La bitácora no puede editarse ni borrarse desde el sistema.</td><td>Ningún rol tiene una opción para modificarla.</td></tr>
+    <tr><td class="id">RNF-005</td><td>No se borra información: los catálogos se desactivan.</td><td>Desactivar un vehículo conserva todos sus movimientos.</td></tr>
+    <tr><td class="id">RNF-006</td><td>En el registro estudiantil no se guardan CURP, CIC, texto del OCR ni fotos en tablas o registros técnicos; la contraseña de la UAT no se almacena, y hay límites de intentos (10 por IP y 5 contraseñas rechazadas por cuenta cada 15 minutos).</td><td>Revisión de las tablas y de los registros del servidor tras una solicitud de prueba.</td></tr>
+  </tbody>
+</table>
+
+<table>
+  <caption>Rendimiento (ISO/IEC 25010: eficiencia de desempeño)</caption>
+  <thead><tr><th class="id">ID</th><th>Requisito</th><th style="width:34%">Criterio de aceptación</th></tr></thead>
+  <tbody>
+    <tr><td class="id">RNF-007</td><td>Registrar la entrada de un vehículo registrado toma 10 segundos o menos, desde teclear la placa hasta la confirmación.</td><td>Medido en prueba con un guardia.</td></tr>
+    <tr><td class="id">RNF-008</td><td>Una consulta por placa responde en 3 segundos o menos.</td><td>Medido con al menos 1000 movimientos.</td></tr>
+    <tr><td class="id">RNF-009</td><td>Un reporte mensual se genera en 20 segundos o menos.</td><td>Medido con un mes de datos.</td></tr>
+    <tr><td class="id">RNF-010</td><td>Las tres casetas pueden registrar al mismo tiempo sin perder registros: las escrituras usan un candado con espera de unos 10 segundos.</td><td>Registros simultáneos desde tres dispositivos quedan completos; si no se obtiene el candado, el sistema avisa «Ocupado» para reintentar.</td></tr>
+  </tbody>
+</table>
+
+<table>
+  <caption>Disponibilidad (ISO/IEC 25010: fiabilidad)</caption>
+  <thead><tr><th class="id">ID</th><th>Requisito</th><th style="width:34%">Criterio de aceptación</th></tr></thead>
+  <tbody>
+    <tr><td class="id">RNF-011</td><td>El sistema está disponible durante el horario de operación del campus, sujeto a la disponibilidad de los servicios de Google.</td><td>Sin caídas atribuibles al sistema durante la prueba.</td></tr>
+    <tr><td class="id">RNF-012</td><td>Ante una falla de red, la interfaz informa con un mensaje claro y permite reintentar.</td><td>Al cortar la conexión, aparece el aviso de red y el formulario conserva lo capturado.</td></tr>
+    <tr><td class="id">RNF-013</td><td>Las casetas cuentan con conexión (datos móviles o red del campus) antes de implantar el sistema. Mientras no la haya, el registro se hace en el formato en papel actual.</td><td>Conexión verificada en las tres casetas.</td></tr>
+  </tbody>
+</table>
+
+<table>
+  <caption>Usabilidad (ISO/IEC 25010: capacidad de interacción)</caption>
+  <thead><tr><th class="id">ID</th><th>Requisito</th><th style="width:34%">Criterio de aceptación</th></tr></thead>
+  <tbody>
+    <tr><td class="id">RNF-014</td><td>La app de caseta está diseñada para celular, con botones de al menos 44 píxeles de alto; el portal está diseñado para computadora.</td><td>Uso completo en una pantalla de 360 píxeles de ancho.</td></tr>
+    <tr><td class="id">RNF-015</td><td>Registrar un vehículo registrado requiere tres acciones: teclear la placa, verificarla y registrar.</td><td>Prueba de recorrido.</td></tr>
+    <tr><td class="id">RNF-016</td><td>Toda la interfaz y los mensajes de error están en español claro; los errores se muestran junto al campo que los causa.</td><td>Revisión de todas las pantallas.</td></tr>
+    <tr><td class="id">RNF-017</td><td>Un guardia nuevo aprende a registrar entradas y salidas en 30 minutos o menos.</td><td>Prueba con un guardia sin experiencia previa.</td></tr>
+  </tbody>
+</table>
+
+<table>
+  <caption>Mantenibilidad (ISO/IEC 25010: mantenibilidad)</caption>
+  <thead><tr><th class="id">ID</th><th>Requisito</th><th style="width:34%">Criterio de aceptación</th></tr></thead>
+  <tbody>
+    <tr><td class="id">RNF-018</td><td>La interfaz y el servidor se comunican mediante un contrato de API versionado, con una sola función pública, que es la fuente de verdad de acciones, datos, errores y permisos.</td><td>Cada acción usada por la interfaz está en el contrato.</td></tr>
+    <tr><td class="id">RNF-019</td><td>El código está organizado por módulos, con tipos de TypeScript en la interfaz, en un repositorio con control de versiones; el backend complementario tiene pruebas automatizadas.</td><td>Revisión del repositorio; las pruebas pasan.</td></tr>
+    <tr><td class="id">RNF-020</td><td>Las casetas se agregan o modifican desde el portal sin cambiar el código. Los tipos de usuario y los roles son fijos y cambiarlos requiere modificar el contrato.</td><td>Agregar una caseta sin editar código.</td></tr>
+    <tr><td class="id">RNF-021</td><td>El sistema se entrega con manual de usuario.</td><td>Manual entregado con el sistema.</td></tr>
+  </tbody>
+</table>
+
+<!-- ============================================================ -->
+<h1 id="s5">5. Casos de uso</h1>
+<p>Los diagramas de casos de uso están en la sección <a href="#s6-1">6.1</a>. Los mensajes de error que se mencionan son los definidos en el contrato de API.</p>
+
+<table class="ficha">
+  <caption>CU-01 Iniciar sesión y comenzar turno</caption>
+  <tr><th>Actor</th><td>Guardia (también Supervisor y Administrador para iniciar sesión)</td></tr>
+  <tr><th>Descripción</th><td>El usuario entra con su cuenta de Google y, en la caseta, fija la caseta de su turno.</td></tr>
+  <tr><th>Precondiciones</th><td>El usuario está dado de alta y activo en el sistema. El dispositivo tiene conexión.</td></tr>
+  <tr><th>Flujo principal</th><td><ol>
+    <li>El usuario abre la dirección de la app.</li>
+    <li>Google solicita la cuenta si no hay una sesión abierta.</li>
+    <li>El sistema identifica al usuario por su correo y carga su rol, sus permisos y las casetas activas.</li>
+    <li>Si el guardia tiene caseta asignada, el sistema la muestra; si no, el guardia elige una.</li>
+    <li>El guardia pulsa «Comenzar turno» y el sistema abre la pantalla de trabajo.</li></ol></td></tr>
+  <tr><th>Flujos alternos</th><td><ul>
+    <li>3a. El correo no está registrado, el usuario está inactivo o el servidor no recibe el correo: el sistema muestra «Tu cuenta no tiene acceso» con el motivo y la opción de usar otra cuenta.</li>
+    <li>5a. Desde las opciones del turno, el guardia cambia de caseta o termina el turno; terminar cierra la sesión de Google en el dispositivo.</li></ul></td></tr>
+  <tr><th>Postcondiciones</th><td>El acceso queda en la bitácora.</td></tr>
+  <tr><th>Requisitos</th><td>RF-015, RF-017, RF-018, RF-023</td></tr>
+</table>
+
+<table class="ficha">
+  <caption>CU-02 Registrar entrada</caption>
+  <tr><th>Actor</th><td>Guardia (también Administrador)</td></tr>
+  <tr><th>Descripción</th><td>El guardia registra la entrada de un vehículo a partir de su placa.</td></tr>
+  <tr><th>Precondiciones</th><td>Turno iniciado en una caseta activa (CU-01).</td></tr>
+  <tr><th>Flujo principal</th><td><ol>
+    <li>El guardia teclea la placa y pulsa «Verificar placa».</li>
+    <li>El sistema normaliza la placa y muestra propietario, tipo de usuario, vehículo, autorización, que está fuera del campus y su último movimiento.</li>
+    <li>El guardia pulsa «Registrar entrada».</li>
+    <li>El sistema guarda la entrada con la fecha y hora del servidor, la caseta del turno y el correo del guardia, y la anota en la bitácora.</li>
+    <li>El sistema muestra «Entrada registrada» con la hora; el guardia permite el paso y pulsa «Registrar otro vehículo».</li></ol></td></tr>
+  <tr><th>Flujos alternos</th><td><ul>
+    <li>2a. La placa no tiene entre 4 y 10 letras o números: el sistema marca el campo con el error.</li>
+    <li>2b. La placa no está registrada: continúa en CU-04.</li>
+    <li>2c. El vehículo no está autorizado: el sistema lo indica; el guardia aplica el protocolo de seguridad y, si registra, la entrada se guarda con advertencia.</li>
+    <li>3a. El guardia agrega una nota antes de registrar.</li>
+    <li>4a. El vehículo ya tenía una entrada abierta: se guarda con la advertencia «Entrada duplicada».</li>
+    <li>4b. Otra caseta está escribiendo y no se obtiene el candado: el sistema avisa «Ocupado» y el guardia reintenta.</li>
+    <li>4c. No hay conexión: el sistema muestra el aviso de red; el guardia reintenta o usa el formato en papel.</li></ul></td></tr>
+  <tr><th>Postcondiciones</th><td>Un movimiento de tipo ENTRADA en la hoja <code>Movimientos</code> y su registro en la bitácora.</td></tr>
+  <tr><th>Requisitos</th><td>RF-001, RF-004, RF-021, RF-022, RF-023, RF-024</td></tr>
+</table>
+
+<table class="ficha">
+  <caption>CU-03 Registrar salida</caption>
+  <tr><th>Actor</th><td>Guardia (también Administrador)</td></tr>
+  <tr><th>Descripción</th><td>El guardia registra la salida de un vehículo.</td></tr>
+  <tr><th>Precondiciones</th><td>Turno iniciado en una caseta activa.</td></tr>
+  <tr><th>Flujo principal</th><td><ol>
+    <li>El guardia teclea la placa y pulsa «Verificar placa».</li>
+    <li>El sistema muestra que el vehículo está dentro del campus, desde cuándo y por qué caseta entró, y propone «Registrar salida».</li>
+    <li>El guardia pulsa «Registrar salida».</li>
+    <li>El sistema guarda la salida con la fecha, la hora y la caseta automáticas y conserva los datos de la visita de la entrada.</li>
+    <li>El sistema muestra «Salida registrada» con el tiempo que estuvo dentro.</li></ol></td></tr>
+  <tr><th>Flujos alternos</th><td><ul>
+    <li>2a. No hay una entrada abierta: el sistema propone la entrada; si el guardia registra la salida, se guarda con la advertencia «Salida sin entrada».</li>
+    <li>4a. Ocupado o sin conexión: como en CU-02.</li></ul></td></tr>
+  <tr><th>Postcondiciones</th><td>Un movimiento de tipo SALIDA en <code>Movimientos</code> y su registro en la bitácora.</td></tr>
+  <tr><th>Requisitos</th><td>RF-002, RF-004, RF-021, RF-022, RF-023</td></tr>
+</table>
+
+<table class="ficha">
+  <caption>CU-04 Registrar visita (placa no registrada)</caption>
+  <tr><th>Actor</th><td>Guardia</td></tr>
+  <tr><th>Descripción</th><td>Extiende CU-02 cuando la placa no está en el catálogo, por ejemplo un visitante o un proveedor.</td></tr>
+  <tr><th>Precondiciones</th><td>La verificación indicó «Placa no registrada».</td></tr>
+  <tr><th>Flujo principal</th><td><ol>
+    <li>El sistema muestra el formulario de la visita con «Visitante» seleccionado.</li>
+    <li>El guardia confirma o cambia el tipo de usuario y captura el nombre del conductor y el motivo de la visita.</li>
+    <li>El guardia pulsa «Registrar entrada».</li>
+    <li>El sistema guarda la entrada con la advertencia «La placa no está en el catálogo de vehículos».</li></ol></td></tr>
+  <tr><th>Flujos alternos</th><td><ul>
+    <li>2a. Falta el tipo de usuario o un dato no es válido: el sistema marca el campo.</li>
+    <li>Al salir, el sistema toma los datos de la visita de la entrada abierta, sin volver a capturarlos.</li></ul></td></tr>
+  <tr><th>Postcondiciones</th><td>Entrada registrada como vehículo no registrado.</td></tr>
+  <tr><th>Requisitos</th><td>RF-001, RF-020, RF-021</td></tr>
+</table>
+
+<table class="ficha">
+  <caption>CU-05 Consultar movimientos</caption>
+  <tr><th>Actor</th><td>Guardia, Supervisor, Administrador</td></tr>
+  <tr><th>Descripción</th><td>El usuario busca movimientos con filtros y, opcionalmente, los exporta.</td></tr>
+  <tr><th>Precondiciones</th><td>Sesión iniciada en el portal.</td></tr>
+  <tr><th>Flujo principal</th><td><ol>
+    <li>El usuario abre «Consultas».</li>
+    <li>Captura uno o varios filtros: placa, desde, hasta, caseta, tipo de usuario y movimiento.</li>
+    <li>Pulsa «Buscar movimientos».</li>
+    <li>El sistema muestra el total y la lista paginada, del más reciente al más antiguo.</li></ol></td></tr>
+  <tr><th>Flujos alternos</th><td><ul>
+    <li>4a. No hay coincidencias: el sistema lo indica y sugiere otros filtros.</li>
+    <li>Extensión: el usuario pulsa «Exportar a Excel» o «Exportar a PDF»; el archivo se descarga y la exportación queda en la bitácora. Si hay más de 5000 filas, el sistema avisa que el archivo está recortado.</li></ul></td></tr>
+  <tr><th>Requisitos</th><td>RF-003 a RF-007, RF-014</td></tr>
+</table>
+
+<table class="ficha">
+  <caption>CU-06 Generar reportes</caption>
+  <tr><th>Actor</th><td>Supervisor, Administrador</td></tr>
+  <tr><th>Descripción</th><td>El usuario obtiene reportes estadísticos de un periodo.</td></tr>
+  <tr><th>Precondiciones</th><td>Sesión iniciada en el portal con permiso de reportes.</td></tr>
+  <tr><th>Flujo principal</th><td><ol>
+    <li>El usuario abre «Reportes» y elige desde, hasta y, si quiere, una caseta.</li>
+    <li>El sistema muestra entradas y salidas por periodo (agrupables por día, semana o mes), totales por caseta y por tipo de usuario, vehículos más frecuentes y el mapa de horarios de mayor afluencia.</li>
+    <li>El usuario exporta el reporte a Excel o PDF.</li></ol></td></tr>
+  <tr><th>Flujos alternos</th><td><ul>
+    <li>1a. El rango supera 366 días o la fecha final es anterior a la inicial: el sistema marca el error.</li>
+    <li>2a. No hay movimientos en el periodo: las gráficas aparecen en cero y no hay horario pico.</li></ul></td></tr>
+  <tr><th>Requisitos</th><td>RF-011 a RF-014, RF-026</td></tr>
+</table>
+
+<table class="ficha">
+  <caption>CU-07 Administrar catálogos</caption>
+  <tr><th>Actor</th><td>Administrador</td></tr>
+  <tr><th>Descripción</th><td>Alta y edición de vehículos, personas y casetas.</td></tr>
+  <tr><th>Precondiciones</th><td>Sesión iniciada con rol Administrador.</td></tr>
+  <tr><th>Flujo principal</th><td><ol>
+    <li>El administrador abre «Catálogos» y elige la pestaña Vehículos, Personas o Casetas.</li>
+    <li>Pulsa «Agregar» o «Editar» en un registro.</li>
+    <li>Captura los datos y guarda.</li>
+    <li>El sistema valida, guarda, actualiza la lista y anota el cambio en la bitácora.</li></ol></td></tr>
+  <tr><th>Flujos alternos</th><td><ul>
+    <li>4a. La placa o la matrícula ya existen: el sistema marca el campo como duplicado.</li>
+    <li>4b. La persona elegida para un vehículo no existe o está inactiva: error de validación.</li>
+    <li>2a. Para retirar un registro, el administrador lo desactiva o desautoriza; no se borra.</li></ul></td></tr>
+  <tr><th>Requisitos</th><td>RF-008, RF-009, RF-010</td></tr>
+</table>
+
+<table class="ficha">
+  <caption>CU-08 Administrar usuarios del sistema</caption>
+  <tr><th>Actor</th><td>Administrador</td></tr>
+  <tr><th>Descripción</th><td>Alta y edición de quién usa el sistema y con qué rol.</td></tr>
+  <tr><th>Precondiciones</th><td>Sesión iniciada con rol Administrador.</td></tr>
+  <tr><th>Flujo principal</th><td><ol>
+    <li>El administrador abre «Administración» y pulsa «Agregar usuario».</li>
+    <li>Captura el correo de la cuenta de Google, nombre, rol y, para un guardia, la caseta fija o «Sin caseta fija».</li>
+    <li>Pulsa «Guardar usuario».</li>
+    <li>El sistema guarda el usuario y el cambio en la bitácora. Desde ese momento la persona puede entrar con su cuenta.</li></ol></td></tr>
+  <tr><th>Flujos alternos</th><td><ul>
+    <li>4a. El correo ya existe: el sistema marca el campo como duplicado.</li>
+    <li>2a. Al editar, el administrador cambia el rol o la caseta, o desactiva al usuario.</li>
+    <li>4b. El cambio dejaría el sistema sin administradores activos o el usuario intenta desactivarse a sí mismo: el sistema lo rechaza con un aviso.</li></ul></td></tr>
+  <tr><th>Requisitos</th><td>RF-016, RF-017, RF-018</td></tr>
+</table>
+
+<table class="ficha">
+  <caption>CU-09 Consultar bitácora</caption>
+  <tr><th>Actor</th><td>Supervisor, Administrador</td></tr>
+  <tr><th>Descripción</th><td>Revisión de quién hizo qué en el sistema.</td></tr>
+  <tr><th>Flujo principal</th><td><ol>
+    <li>El usuario abre «Administración», sección «Bitácora de actividades».</li>
+    <li>Filtra por desde, hasta, usuario o actividad.</li>
+    <li>El sistema muestra las entradas de la más reciente a la más antigua, con su resultado (correcto o rechazado).</li></ol></td></tr>
+  <tr><th>Flujos alternos</th><td><ul><li>3a. Sin coincidencias: el sistema lo indica.</li></ul></td></tr>
+  <tr><th>Requisitos</th><td>RF-018, RF-019</td></tr>
+</table>
+
+<table class="ficha">
+  <caption>CU-10 Confirmar inscripción con cuenta institucional</caption>
+  <tr><th>Actor</th><td>Alumno; sistema externo: portal de alumnos de la UAT</td></tr>
+  <tr><th>Flujo principal</th><td><ol>
+    <li>El alumno abre el sitio de registro y escribe su matrícula o correo institucional y su contraseña de la UAT.</li>
+    <li>El sistema consulta su situación escolar en el portal de alumnos.</li>
+    <li>Si está inscrito, el sistema lo da de alta o lo actualiza en el padrón con su nombre oficial y le muestra el enlace a la app de solicitudes.</li></ol></td></tr>
+  <tr><th>Flujos alternos</th><td><ul>
+    <li>2a. Usuario o contraseña incorrectos, demasiados intentos o portal de la UAT sin respuesta: el sistema muestra el motivo.</li>
+    <li>3a. No está inscrito: el sistema no lo da de alta y le indica acudir a Control Vehicular.</li></ul></td></tr>
+  <tr><th>Requisitos</th><td>RF-027, RNF-006</td></tr>
+</table>
+
+<table class="ficha">
+  <caption>CU-11 Enviar solicitud de registro vehicular</caption>
+  <tr><th>Actor</th><td>Alumno; sistema externo: REPUVE</td></tr>
+  <tr><th>Precondiciones</th><td>El alumno está activo en el padrón (CU-10).</td></tr>
+  <tr><th>Flujo principal</th><td><ol>
+    <li>El alumno entra a la app con su cuenta institucional y abre «Registrar vehículo».</li>
+    <li>Captura placa y NIV, adjunta las fotos de su INE y de su tarjeta de circulación y acepta el aviso de privacidad.</li>
+    <li>El sistema guarda la solicitud y la prevalida: OCR de la INE y de la tarjeta, cotejo del nombre con el padrón y consulta a REPUVE.</li>
+    <li>El alumno consulta el estado en «Mis solicitudes».</li></ol></td></tr>
+  <tr><th>Flujos alternos</th><td><ul>
+    <li>2a. El NIV no tiene 17 caracteres o la placa no es válida: la app no permite enviar.</li>
+    <li>3a. REPUVE no responde: el resultado queda «No disponible» y la solicitud pasa a revisión humana.</li></ul></td></tr>
+  <tr><th>Requisitos</th><td>RF-028, RF-029, RF-031</td></tr>
+</table>
+
+<table class="ficha">
+  <caption>CU-12 Revisar solicitud y publicar resultado</caption>
+  <tr><th>Actor</th><td>Revisor de Control Vehicular</td></tr>
+  <tr><th>Flujo principal</th><td><ol>
+    <li>El revisor selecciona la solicitud en la hoja privada y elige «Registro vehicular → Abrir revisión de la solicitud».</li>
+    <li>Revisa la prevalidación y, si hace falta, coteja la INE, la tarjeta y REPUVE en los portales oficiales.</li>
+    <li>Elige la decisión y pulsa «Publicar resultado seleccionado».</li>
+    <li>Si aprueba, el sistema emite el pase QR y el alumno lo ve en la app.</li></ol></td></tr>
+  <tr><th>Flujos alternos</th><td><ul>
+    <li>3a. Faltan validaciones para aprobar o la placa o el NIV ya tienen una aprobación: el sistema impide aprobar.</li>
+    <li>3b. «Devolver»: el alumno ve la indicación y envía una nueva solicitud.</li></ul></td></tr>
+  <tr><th>Requisitos</th><td>RF-030, RF-031, RF-032</td></tr>
+</table>
+
+<!-- ============================================================ -->
+<h1 id="s6">6. Diagramas</h1>
+
+<h2 id="s6-1">6.1 Diagramas de casos de uso</h2>
+<p>El administrador hereda los casos de uso del guardia y del supervisor; los tres heredan los del usuario del sistema.</p>
+<figure>
+  <img src="img/casos-de-uso.png" alt="Diagrama de casos de uso del sistema principal">
+  <figcaption>Casos de uso del sistema principal.</figcaption>
+</figure>
+<figure>
+  <img src="img/casos-de-uso-estudiantil.png" alt="Diagrama de casos de uso del registro vehicular estudiantil" style="width:88%">
+  <figcaption>Casos de uso del registro vehicular estudiantil.</figcaption>
+</figure>
+
+<h2 id="s6-2">6.2 Diagramas de actividades</h2>
+<figure>
+  <img src="img/actividad-caseta.png" alt="Diagrama de actividades del registro en caseta" style="height:19.5cm">
+  <figcaption>Registro de entrada o salida en la caseta.</figcaption>
+</figure>
+<figure>
+  <img src="img/actividad-solicitud.png" alt="Diagrama de actividades de la solicitud de registro vehicular estudiantil">
+  <figcaption>Solicitud de registro vehicular estudiantil.</figcaption>
+</figure>
+
+<h2 id="s6-3">6.3 Modelo de datos (entidad-relación)</h2>
+<p>Cada entidad es una hoja del archivo de Google Sheets y cada atributo, una columna. En <code>Movimientos</code> se copian a propósito el tipo y el nombre de la persona: así las consultas y los reportes no dependen de cruzar hojas y se pueden registrar visitas sin dar de alta a la persona. La placa de un movimiento puede no existir en <code>Vehiculos</code> cuando es una visita.</p>
+<figure>
+  <img src="img/modelo-datos.png" alt="Modelo entidad-relación del sistema principal" style="width:88%">
+  <figcaption>Modelo de datos del sistema principal.</figcaption>
+</figure>
+<figure>
+  <img src="img/modelo-datos-estudiantil.png" alt="Modelo entidad-relación del registro estudiantil" style="width:80%">
+  <figcaption>Modelo de datos del registro vehicular estudiantil.</figcaption>
+</figure>
+
+<!-- ============================================================ -->
+<h1 id="s7">7. Matriz de trazabilidad</h1>
+<p>Relaciona cada requisito funcional de la versión 1.0 con su origen, sus casos de uso y la acción del servidor (contrato de API) o el componente que lo cumple.</p>
+<table class="compacta">
+  <caption>Trazabilidad de requisitos funcionales</caption>
+  <thead><tr><th class="id">RF</th><th>Requisito</th><th>Origen</th><th>Casos de uso</th><th>Acción o componente</th></tr></thead>
+  <tbody>
+    <tr><td class="id">RF-001</td><td>Registrar entrada</td><td>HK</td><td>CU-02, CU-04</td><td><code>movimientos.registrar</code></td></tr>
+    <tr><td class="id">RF-002</td><td>Registrar salida</td><td>HK</td><td>CU-03</td><td><code>movimientos.registrar</code></td></tr>
+    <tr><td class="id">RF-003</td><td>Consultar historial</td><td>HK</td><td>CU-05</td><td><code>movimientos.buscar</code></td></tr>
+    <tr><td class="id">RF-004</td><td>Consultar por placa</td><td>HK, E1</td><td>CU-02, CU-03, CU-05</td><td><code>movimientos.verificarPlaca</code>, <code>movimientos.buscar</code></td></tr>
+    <tr><td class="id">RF-005</td><td>Consultar por fechas</td><td>HK</td><td>CU-05</td><td><code>movimientos.buscar</code></td></tr>
+    <tr><td class="id">RF-006</td><td>Consultar por acceso</td><td>HK</td><td>CU-05</td><td><code>movimientos.buscar</code></td></tr>
+    <tr><td class="id">RF-007</td><td>Consultar por tipo de usuario</td><td>HK</td><td>CU-05</td><td><code>movimientos.buscar</code></td></tr>
+    <tr><td class="id">RF-008</td><td>Administrar vehículos</td><td>HK</td><td>CU-07</td><td><code>vehiculos.listar | crear | actualizar</code></td></tr>
+    <tr><td class="id">RF-009</td><td>Administrar personas</td><td>HK</td><td>CU-07</td><td><code>personas.listar | crear | actualizar</code></td></tr>
+    <tr><td class="id">RF-010</td><td>Administrar casetas</td><td>HK</td><td>CU-07</td><td><code>casetas.listar | crear | actualizar</code></td></tr>
+    <tr><td class="id">RF-011</td><td>Entradas y salidas por periodo</td><td>HK</td><td>CU-06</td><td><code>reportes.resumen</code></td></tr>
+    <tr><td class="id">RF-012</td><td>Vehículos más frecuentes</td><td>HK</td><td>CU-06</td><td><code>reportes.vehiculosFrecuentes</code></td></tr>
+    <tr><td class="id">RF-013</td><td>Horarios de mayor afluencia</td><td>HK, E1</td><td>CU-06</td><td><code>reportes.afluencia</code></td></tr>
+    <tr><td class="id">RF-014</td><td>Exportar a Excel y PDF</td><td>HK</td><td>CU-05, CU-06</td><td>Interfaz web y <code>bitacora.registrarExportacion</code></td></tr>
+    <tr><td class="id">RF-015</td><td>Iniciar y cerrar sesión</td><td>HK</td><td>CU-01</td><td><code>app.iniciar</code> y cuenta de Google</td></tr>
+    <tr><td class="id">RF-016</td><td>Administrar usuarios</td><td>HK</td><td>CU-08</td><td><code>usuarios.listar | crear | actualizar</code></td></tr>
+    <tr><td class="id">RF-017</td><td>Restringir por rol</td><td>HK</td><td>Todos</td><td>Despachador <code>api()</code> y lista de permisos</td></tr>
+    <tr><td class="id">RF-018</td><td>Registrar la bitácora</td><td>HK</td><td>Todos</td><td>Despachador <code>api()</code></td></tr>
+    <tr><td class="id">RF-019</td><td>Consultar la bitácora</td><td>HK</td><td>CU-09</td><td><code>bitacora.listar</code></td></tr>
+    <tr><td class="id">RF-020</td><td>Registrar visita</td><td>HK, E1</td><td>CU-04</td><td><code>movimientos.registrar</code></td></tr>
+    <tr><td class="id">RF-021</td><td>Advertir sin bloquear</td><td>EQ, E1</td><td>CU-02 a CU-04</td><td><code>movimientos.verificarPlaca</code>, <code>movimientos.registrar</code></td></tr>
+    <tr><td class="id">RF-022</td><td>Fecha y hora automáticas</td><td>HK</td><td>CU-02, CU-03</td><td><code>movimientos.registrar</code></td></tr>
+    <tr><td class="id">RF-023</td><td>Identificar la caseta</td><td>HK</td><td>CU-01 a CU-03</td><td><code>app.iniciar</code>, <code>movimientos.registrar</code></td></tr>
+    <tr><td class="id">RF-024</td><td>Agregar una nota</td><td>E1</td><td>CU-02</td><td><code>movimientos.registrar</code></td></tr>
+    <tr><td class="id">RF-025</td><td>Vehículos dentro del campus</td><td>EQ</td><td>CU-06</td><td><code>movimientos.dentro</code></td></tr>
+    <tr><td class="id">RF-026</td><td>Tablero del día</td><td>EQ</td><td>CU-06</td><td><code>reportes.resumen</code>, <code>reportes.afluencia</code>, <code>movimientos.dentro</code></td></tr>
+    <tr><td class="id">RF-027</td><td>Confirmar inscripción</td><td>EQ</td><td>CU-10</td><td>Backend: <code>POST /api/v1/alumnos/verificar</code></td></tr>
+    <tr><td class="id">RF-028</td><td>Solicitar registro vehicular</td><td>E2, EQ</td><td>CU-11</td><td>AppSheet: tabla <code>Solicitudes</code></td></tr>
+    <tr><td class="id">RF-029</td><td>Prevalidar documentos</td><td>EQ</td><td>CU-11</td><td>Backend y analizador (OCR, REPUVE)</td></tr>
+    <tr><td class="id">RF-030</td><td>Revisar y publicar</td><td>EQ</td><td>CU-12</td><td>Script de revisión en la hoja privada</td></tr>
+    <tr><td class="id">RF-031</td><td>Consultar el estado</td><td>EQ</td><td>CU-11</td><td>AppSheet: «Mis solicitudes»</td></tr>
+    <tr><td class="id">RF-032</td><td>Emitir y revocar el pase QR</td><td>EQ</td><td>CU-12</td><td>Backend: tabla <code>Pases</code></td></tr>
+  </tbody>
+</table>
+
+<!-- ============================================================ -->
+<h1 id="s8">8. Calidad y normas</h1>
+<table>
+  <caption>Alineación con las normas de referencia</caption>
+  <thead><tr><th style="width:24%">Norma</th><th>Cómo se aplica en este documento</th></tr></thead>
+  <tbody>
+    <tr><td><strong>IEEE 830</strong></td><td>Estructura del documento: introducción (propósito, alcance, definiciones, referencias y visión general), descripción general (perspectiva, funciones, usuarios, restricciones, suposiciones) y requisitos específicos.</td></tr>
+    <tr><td><strong>ISO/IEC/IEEE 29148</strong></td><td>Cada requisito tiene un identificador único, una sola necesidad redactada de forma verificable, prioridad y origen. Los requisitos no funcionales tienen criterio de aceptación. Se incluye la matriz de trazabilidad hacia el origen, los casos de uso y la implementación, y se separan los requisitos diferidos.</td></tr>
+    <tr><td><strong>ISO/IEC 25010:2023</strong></td><td>Los requisitos no funcionales se clasifican por característica de calidad: seguridad, eficiencia de desempeño, fiabilidad, capacidad de interacción y mantenibilidad.</td></tr>
+    <tr><td><strong>Buenas prácticas de levantamiento</strong></td><td>Entrevistas documentadas con objetivo, fecha, participantes, preguntas, respuestas y conclusiones; análisis del proceso actual; validación de los requisitos contra el sistema construido (ver el documento de evidencias).</td></tr>
+  </tbody>
+</table>
+
+<!-- ============================================================ -->
+<h1 id="anexo-a">Anexo A. Uso de inteligencia artificial</h1>
+<p>En cumplimiento de las bases del concurso, el equipo declara el uso de inteligencia artificial en el proyecto.</p>
+
+<h2>A.1 Herramientas utilizadas</h2>
+<table>
+  <caption>Herramientas de inteligencia artificial</caption>
+  <thead><tr><th style="width:30%">Herramienta</th><th>Uso</th></tr></thead>
+  <tbody>
+    <tr><td>Claude Code, con el modelo Claude Opus 5.5 (Anthropic)</td><td>Asistente en la terminal, con acceso al repositorio del proyecto. Se usó para analizar las bases, proponer la arquitectura, definir el contrato de API, programar la interfaz web, elaborar diagramas y dar formato a la documentación. Cada resultado fue revisado por el equipo antes de integrarse.</td></tr>
+  </tbody>
+</table>
+
+<h2>A.2 Evidencias: prompts y resultados</h2>
+<p>Claude Code guarda localmente el registro de cada sesión. La tabla resume los prompts principales con su fecha y hora; las figuras muestran tres extractos del registro (prompt textual y resultado resumido) y un commit del repositorio público marcado como coautoría de la IA.</p>
+<table class="compacta">
+  <caption>Registro de sesiones con IA</caption>
+  <thead><tr><th style="width:15%">Fecha y hora</th><th style="width:13%">Actividad</th><th style="width:34%">Prompt</th><th>Resultado</th></tr></thead>
+  <tbody>
+    <tr><td>20/11/2026 20:53</td><td>Análisis y diseño</td><td>«Necesitamos definir un stack para un portal web. Inicia el repositorio github con un nombre de proyecto acorde. Revisa la imagen y docs y toma notas…»</td><td>Lectura de las bases, notas de requisitos, detección de ambigüedades (los dos significados de «tipo de usuario») y repositorio creado (commit <code>8485a5b</code>).</td></tr>
+    <tr><td>20/11/2026 21:03</td><td>Diseño</td><td>«Define un contrato de endpoints para que tanto frontend como backend pueda trabajarlo en simultaneo y no tener disparejos…»</td><td>Contrato de API v1.0 con 22 acciones, permisos por rol y códigos de error (commit <code>2d53d56</code>).</td></tr>
+    <tr><td>20/11/2026 21:46</td><td>Diseño</td><td>«dame sugerencias de interfaces»</td><td>Maquetas de 4 pantallas de caseta y 5 del portal ligadas a las acciones del contrato.</td></tr>
+    <tr><td>20/11/2026 22:10</td><td>Diseño</td><td>«Moderniza el web. Usa la skill de diseño de web que se instaló»</td><td>Rediseño visual con estilo de señalización vial.</td></tr>
+    <tr><td>20/11/2026 22:26</td><td>Diseño</td><td>«En la aplicación de caseta podríamos modernizar el acceso a cerrar sesión o iniciar sesión lo más simple posible pero sin header…»</td><td>Propuesta de «Comenzar turno» y «Terminar turno» para el teléfono compartido de la caseta.</td></tr>
+    <tr><td>20/11/2026 22:42</td><td>Programación</td><td>«Empieza haciendo el frontend en carpeta front-end y portal-admin, app-caseta…»</td><td>App de caseta y portal de administración en React y TypeScript, revisados con TypeScript y compilación (commit <code>d8df75e</code>).</td></tr>
+    <tr><td>21/11/2026 07:40</td><td>Integración</td><td>«Revisa si hay actualizaciones de otra rama o algo»</td><td>Revisión de la rama del backend e integración de las ramas en <code>main</code>.</td></tr>
+    <tr><td>21/11/2026 07:45</td><td>Documentación</td><td>«revisa el pdf y una imagen que agregue. Son entregables…»</td><td>Contraste del borrador con el sistema, diagramas UML y redacción de los entregables en formato de informe.</td></tr>
+  </tbody>
+</table>
+<figure>
+  <img src="img/ia-extracto-e2.png" alt="Extracto de la sesión de programación del front-end" style="width:86%">
+  <figcaption>Extracto del registro de la sesión: programación de la interfaz web.</figcaption>
+</figure>
+<figure>
+  <img src="img/ia-extracto-e1.png" alt="Extracto de la sesión del contrato de API" style="width:86%">
+  <figcaption>Extracto del registro de la sesión: definición del contrato de API.</figcaption>
+</figure>
+<figure>
+  <img src="img/ia-extracto-e3.png" alt="Extracto de la sesión de documentación" style="width:86%">
+  <figcaption>Extracto del registro de la sesión: revisión y redacción de los entregables.</figcaption>
+</figure>
+<figure class="captura">
+  <img src="img/ia-commit-github.png" alt="Commit del repositorio con coautoría de Claude">
+  <figcaption>Commit <code>d8df75e</code> en el repositorio público, con la marca <code>Co-Authored-By: Claude Opus 5.5</code>.</figcaption>
+</figure>
+
+<h2>A.3 Declaración de uso</h2>
+<p><strong>Actividades donde se utilizó.</strong> El uso de la IA se concentró en la investigación y la implementación del proyecto: análisis de las bases y de la plataforma, diseño técnico (contrato de API e interfaz) y programación. También se usó como apoyo para revisar la consistencia entre documentos y código, elaborar diagramas y dar formato a la documentación. El trabajo de campo, las entrevistas, las fotografías, las decisiones de alcance y la validación de los resultados los realizó el equipo.</p>
+<p><strong>Beneficios obtenidos.</strong> Permitió que la interfaz y el servidor se construyeran en paralelo contra un contrato común, detectar ambigüedades de las bases desde el inicio y verificar que los documentos describan el sistema real.</p>
+<p><strong>Limitaciones encontradas.</strong> La IA no sustituye el trabajo de campo: las entrevistas, sus respuestas y las decisiones sobre el alcance son del equipo. Sus propuestas requirieron revisión humana; por ejemplo, varios requisitos del borrador no coincidían con lo construido y se movieron a versiones futuras, y algunos datos de las entrevistas se corrigieron contra las notas de campo. Las metas de rendimiento y usabilidad deben validarse con el personal de las casetas.</p>
+
+<h2>A.4 Porcentaje de apoyo de la IA</h2>
+<p>Estimación del equipo a partir del registro de sesiones y del historial del repositorio. Considera como apoyo de la IA las versiones iniciales que generó, y como trabajo del equipo el trabajo de campo, las decisiones, la revisión y las correcciones.</p>
+<table style="width:100%">
+  <caption>Estimación del apoyo de la IA por actividad</caption>
+  <thead><tr><th style="width:22%">Actividad</th><th class="c" style="width:14%">Porcentaje</th><th>Base de la estimación</th></tr></thead>
+  <tbody>
+    <tr><td>Análisis</td><td class="c">35 %</td><td>La IA hizo la primera lectura de las bases y propuso requisitos; el cuestionario, las entrevistas, las fotografías y la validación de requisitos fueron del equipo.</td></tr>
+    <tr><td>Diseño</td><td class="c">55 %</td><td>La IA propuso el contrato de API, las maquetas y los diagramas; el equipo decidió la autenticación, el alcance y los cambios a la interfaz.</td></tr>
+    <tr><td>Programación</td><td class="c">65 %</td><td>La interfaz web se generó con IA y el equipo la revisó y probó; la integración, el despliegue y la configuración de las aplicaciones fueron del equipo.</td></tr>
+    <tr><td>Documentación</td><td class="c">60 %</td><td>La IA redactó y dio formato a los documentos a partir del contenido del equipo: entrevistas, fotografías, decisiones y correcciones.</td></tr>
+  </tbody>
+</table>
+
+</body>
+</html>

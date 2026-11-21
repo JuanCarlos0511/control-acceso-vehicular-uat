@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Sistema Funcional</title>
+<link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+<section class="portada">
+  <div class="nombre-documento">Sistema Funcional: acceso para el jurado · Control de Acceso Vehicular UAT CUTM Sur</div>
+  <img class="logos" src="img/logos-uat-fit.png" alt="Universidad Autónoma de Tamaulipas y Facultad de Ingeniería Tampico">
+  <div class="institucion">UNIVERSIDAD AUTÓNOMA DE TAMAULIPAS</div>
+  <div class="dependencia">Facultad de Ingeniería Tampico · Centro Universitario Sur</div>
+  <div class="dependencia">Ingeniería en Sistemas Computacionales</div>
+  <div class="titulo">Sistema de Control de Acceso Vehicular<br>para la UAT CUTM Sur</div>
+  <div class="subtitulo">Solución basada en Google Apps Script y Google Sheets</div>
+  <div><span class="tipo">Sistema funcional: ligas e instrucciones de acceso</span></div>
+  <table class="datos">
+    <tr><th>Evento</th><td>Concurso Hackatón · Facultad de Ingeniería Tampico</td></tr>
+    <tr><th>Equipo</th><td>Juan José Santiago Cruz<br>Jared Said Constantino Lemus<br>Juan Carlos Guzmán Antonio<br>Jocelyin Mateo Saldierna<br>Roberto Campillo Martínez</td></tr>
+  </table>
+  <div class="lugar">Tampico, Tamaulipas · 21 de noviembre de 2026</div>
+</section>
+
+<h1>1. Ligas del sistema</h1>
+<table>
+  <caption>Aplicación web desplegada en Google Apps Script</caption>
+  <thead><tr><th style="width:28%">Aplicación</th><th>Liga</th></tr></thead>
+  <tbody>
+    <tr><td><strong>App de caseta</strong> (celular)</td><td><code>https://script.google.com/macros/s/AKfycbznufn6ALqmmlaeK9rBj9KcoRq3gwFsCFbQI0jx3G_wXCkEfyWSmXT7BDJhIpl8wJG8DA/exec</code></td></tr>
+    <tr><td><strong>Portal de administración</strong> (computadora)</td><td><code>https://script.google.com/macros/s/AKfycbznufn6ALqmmlaeK9rBj9KcoRq3gwFsCFbQI0jx3G_wXCkEfyWSmXT7BDJhIpl8wJG8DA/exec?app=admin</code></td></tr>
+    <tr><td><strong>Hoja de cálculo</strong> (base de datos)</td><td>Hoja privada de Google Sheets, ligada al proyecto de Apps Script. Se comparte como lector si el jurado la solicita.</td></tr>
+  </tbody>
+</table>
+
+<table>
+  <caption>Componentes complementarios publicados</caption>
+  <thead><tr><th style="width:28%">Componente</th><th>Liga</th><th style="width:30%">Nota</th></tr></thead>
+  <tbody>
+    <tr><td>Registro de alumnos</td><td><code>https://hackathonfrontend.452111.xyz</code></td><td>El alumno confirma su inscripción con la cuenta de la UAT, envía su solicitud y consulta su estado y su pase QR.</td></tr>
+    <tr><td>Caseta con verificación de pase QR (AppSheet)</td><td><code>https://www.appsheet.com/start/6cbd00ce-398c-4ba9-b1bc-e68e79e68f27</code></td><td>Versión para guardias que verifica el pase QR del alumno. Solo cuentas invitadas en AppSheet.</td></tr>
+    <tr><td>Demostración de la caseta</td><td><code>https://hackathonfrontend.452111.xyz/caseta</code></td><td>Datos ficticios, sin servidor real.</td></tr>
+    <tr><td>Demostración del portal</td><td><code>https://hackathonfrontend.452111.xyz/admin</code></td><td>Datos ficticios, sin servidor real.</td></tr>
+    <tr><td>Estado del backend de validación</td><td><code>https://hackathon.452111.xyz/salud</code></td><td>Estado de sus componentes.</td></tr>
+  </tbody>
+</table>
+
+<h1 class="sin-salto" style="margin-top:20pt">2. Instrucciones de acceso para el jurado</h1>
+<h2>2.1 Requisitos</h2>
+<ul>
+  <li>Un navegador actualizado (Chrome, Edge o Firefox), en celular para la app de caseta y en computadora para el portal.</li>
+  <li>Una cuenta de Google (por ejemplo, Gmail). El sistema no usa contraseñas propias: Google pide iniciar sesión y el sistema identifica la cuenta.</li>
+  </ul>
+
+<h2>2.2 Cuentas para evaluar</h2>
+<p>No hace falta registro previo. En este prototipo, la primera vez que una cuenta de Google entra, el sistema la da de alta como <strong>Administrador</strong>, con acceso a todas las funciones. Para probar los roles de Guardia o Supervisor, en <strong>Administración → Usuarios del sistema</strong> se edita la cuenta y se le cambia el rol.</p>
+<p>Las cuentas distintas a la del propietario aparecen como «Invitado …», porque Google no comparte su correo con una aplicación publicada desde una cuenta personal.</p>
+<div class="nota"><p>Con varias cuentas de Google abiertas en el mismo navegador, Apps Script puede fallar al cargar. Usen una ventana de incógnito con una sola cuenta.</p></div>
+
+<h2>2.3 Recorrido sugerido de prueba</h2>
+<table>
+  <caption>Pasos para probar el sistema</caption>
+  <thead><tr><th style="width:6%">#</th><th style="width:22%">Dónde</th><th>Qué hacer</th><th style="width:28%">Resultado esperado</th></tr></thead>
+  <tbody>
+    <tr><td>1</td><td>Portal: Catálogos</td><td>Abrir la liga con <code>?app=admin</code>. En Personas, agregar una persona (por ejemplo, estudiante con matrícula); en Vehículos, agregar la placa <code>XYZ-123-A</code> a su nombre.</td><td>Persona y vehículo en los catálogos.</td></tr>
+    <tr><td>2</td><td>App de caseta</td><td>Abrir la liga sin parámetros, elegir una caseta y pulsar «Comenzar turno».</td><td>Pantalla de trabajo de la caseta.</td></tr>
+    <tr><td>3</td><td>App de caseta</td><td>Escribir <code>XYZ-123-A</code>, pulsar «Verificar placa» y luego «Registrar entrada».</td><td>«Entrada registrada» con la hora del servidor.</td></tr>
+    <tr><td>4</td><td>App de caseta</td><td>Verificar la misma placa y pulsar «Registrar salida».</td><td>«Salida registrada» con el tiempo que estuvo dentro.</td></tr>
+    <tr><td>5</td><td>App de caseta</td><td>Escribir una placa nueva, elegir «Visitante», capturar nombre y motivo y registrar la entrada.</td><td>Entrada registrada con el aviso de placa no registrada.</td></tr>
+    <tr><td>6</td><td>Portal: Consultas y Reportes</td><td>Filtrar por la placa del paso 3, exportar a Excel y a PDF, y abrir Reportes del mes actual.</td><td>Los movimientos registrados, los archivos y las gráficas.</td></tr>
+    <tr><td>7</td><td>Portal: Administración</td><td>Revisar la bitácora y cambiar el rol de una cuenta.</td><td>Accesos, registros y cambios en la bitácora.</td></tr>
+  </tbody>
+</table>
+
+<h2>2.4 Demostración sin cuenta de Google</h2>
+<p>Si no es posible entrar con una cuenta de Google, las demostraciones de la caseta y del portal muestran la misma interfaz con datos ficticios y el aviso «Demostración · datos ficticios». Para cambiar de usuario de prueba se agrega <code>?rol=</code> a la liga: <code>ADMIN</code>, <code>SUPERVISOR</code>, <code>GUARDIA</code>, <code>ROTATIVO</code> (guardia sin caseta fija) o <code>NOREG</code> (cuenta sin acceso). Por ejemplo: <code>https://hackathonfrontend.452111.xyz/admin?rol=SUPERVISOR</code>.</p>
+<p>El manual de usuario describe cada pantalla con capturas.</p>
+
+</body>
+</html>

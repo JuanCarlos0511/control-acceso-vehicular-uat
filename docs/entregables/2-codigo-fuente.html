@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Código Fuente</title>
+<link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+<section class="portada">
+  <div class="nombre-documento">Código Fuente: repositorio del proyecto · Control de Acceso Vehicular UAT CUTM Sur</div>
+  <img class="logos" src="img/logos-uat-fit.png" alt="Universidad Autónoma de Tamaulipas y Facultad de Ingeniería Tampico">
+  <div class="institucion">UNIVERSIDAD AUTÓNOMA DE TAMAULIPAS</div>
+  <div class="dependencia">Facultad de Ingeniería Tampico · Centro Universitario Sur</div>
+  <div class="dependencia">Ingeniería en Sistemas Computacionales</div>
+  <div class="titulo">Sistema de Control de Acceso Vehicular<br>para la UAT CUTM Sur</div>
+  <div class="subtitulo">Solución basada en Google Apps Script y Google Sheets</div>
+  <div><span class="tipo">Código fuente</span></div>
+  <table class="datos">
+    <tr><th>Evento</th><td>Concurso Hackatón · Facultad de Ingeniería Tampico</td></tr>
+    <tr><th>Equipo</th><td>Juan José Santiago Cruz<br>Jared Said Constantino Lemus<br>Juan Carlos Guzmán Antonio<br>Jocelyin Mateo Saldierna<br>Roberto Campillo Martínez</td></tr>
+  </table>
+  <div class="lugar">Tampico, Tamaulipas · 21 de noviembre de 2026</div>
+</section>
+
+<h1>1. Repositorio</h1>
+<table class="ficha">
+  <caption>Datos del repositorio</caption>
+  <tr><th>Liga</th><td><code>https://github.com/JuanCarlos0511/control-acceso-vehicular-uat</code></td></tr>
+  <tr><th>Rama a evaluar</th><td><code>main</code></td></tr>
+  <tr><th>Acceso para el jurado</th><td>Repositorio público.</td></tr>
+  <tr><th>Control de versiones</th><td>Git, con ramas por integrante integradas en <code>main</code>.</td></tr>
+</table>
+
+<h1 class="sin-salto" style="margin-top:20pt">2. Estructura</h1>
+<table>
+  <caption>Carpetas del repositorio</caption>
+  <thead><tr><th style="width:30%">Carpeta</th><th>Contenido</th></tr></thead>
+  <tbody>
+    <tr><td><code>docs/contrato-api.md</code></td><td>Contrato de API v1.1 entre la interfaz y el servidor: acciones, tipos de datos, errores, permisos por rol y trazabilidad a los requisitos. Es la fuente de verdad de ambos lados.</td></tr>
+    <tr><td><code>apps-script/</code></td><td>Servidor en Google Apps Script: <code>doGet</code>, la función pública <code>api()</code>, acceso a las hojas, permisos, bitácora y <code>setup()</code> que crea las hojas.</td></tr>
+    <tr><td><code>front-end/app-caseta/</code></td><td>App de caseta para celular.</td></tr>
+    <tr><td><code>front-end/portal-admin/</code></td><td>Portal de administración: tablero, consultas, reportes, catálogos y administración.</td></tr>
+    <tr><td><code>front-end/registro-alumno/</code></td><td>Sitio donde el alumno confirma su inscripción con su cuenta de la UAT.</td></tr>
+    <tr><td><code>front-end/shared/</code></td><td>Código común: tipos del contrato, cliente de la API, datos simulados para desarrollo, estilos, componentes y exportación a Excel y PDF.</td></tr>
+    <tr><td><code>appsheet/</code></td><td>Plantilla de la hoja del registro vehicular estudiantil, configuración de la app de AppSheet y script de revisión de expedientes.</td></tr>
+    <tr><td><code>appsheet-backend/</code></td><td>Backend en Go que valida las solicitudes, emite los pases QR y registra alumnos; incluye el analizador de documentos en Python (OCR y consulta a REPUVE) y sus pruebas.</td></tr>
+    <tr><td><code>deploy/</code></td><td>Despliegue con Docker Compose de los componentes complementarios.</td></tr>
+    <tr><td><code>docs/entregables/</code></td><td>Fuentes de estos documentos, diagramas UML (PlantUML) y capturas.</td></tr>
+  </tbody>
+</table>
+
+<h1>3. Tecnologías</h1>
+<table>
+  <caption>Tecnologías por componente</caption>
+  <thead><tr><th style="width:30%">Componente</th><th>Tecnología</th></tr></thead>
+  <tbody>
+    <tr><td>Servidor y base de datos</td><td>Google Apps Script (V8) publicado como Web App y Google Sheets.</td></tr>
+    <tr><td>Interfaz web</td><td>React 19, TypeScript, Vite y Tailwind CSS 4, compilados a un solo archivo HTML por app para <code>HtmlService</code>. Exportación con SheetJS (Excel) y jsPDF (PDF) en el navegador.</td></tr>
+    <tr><td>Registro estudiantil</td><td>AppSheet; backend en Go; analizador en Python con FastAPI, RapidOCR, OpenCV y Playwright.</td></tr>
+  </tbody>
+</table>
+
+<h1 class="sin-salto" style="margin-top:20pt">4. Cómo compilar y publicar</h1>
+<h2>4.1 Interfaz web</h2>
+<p>Requiere Node 22 o más reciente. Desde <code>front-end/</code>:</p>
+<table class="compacta">
+  <caption>Comandos de la interfaz</caption>
+  <thead><tr><th style="width:38%">Comando</th><th>Qué hace</th></tr></thead>
+  <tbody>
+    <tr><td><code>npm install</code></td><td>Instala las dependencias.</td></tr>
+    <tr><td><code>npm run dev:caseta</code> · <code>npm run dev:admin</code></td><td>Abre la app con datos simulados del contrato, sin servidor; <code>?rol=</code> cambia de usuario de prueba.</td></tr>
+    <tr><td><code>npm run build</code></td><td>Revisa los tipos y genera <code>dist/app-caseta.html</code>, <code>dist/portal-admin.html</code> y <code>dist/registro-alumno.html</code>.</td></tr>
+  </tbody>
+</table>
+
+<h2>4.2 Servidor en Apps Script</h2>
+<ol>
+  <li>Compilar la interfaz (<code>npm run build</code>) y copiar <code>dist/app-caseta.html</code> y <code>dist/portal-admin.html</code> a <code>apps-script/</code>.</li>
+  <li>Crear el proyecto ligado a una hoja nueva: <code>npx @google/clasp create --type sheets --rootDir apps-script</code>.</li>
+  <li>Subir el código con <code>npx @google/clasp push</code> y publicar con <code>npx @google/clasp create-deployment</code>. El manifiesto ya indica <strong>Ejecutar como: yo</strong> y <strong>Acceso: cualquier usuario con cuenta de Google</strong>.</li>
+  <li>Al primer uso, el servidor crea las hojas, las tres casetas y da de alta al propietario como Administrador (también se puede ejecutar <code>setup()</code> desde el editor).</li>
+  <li>La liga <code>/exec</code> abre la app de caseta; con <code>?app=admin</code>, el portal.</li>
+</ol>
+
+<h2>4.3 Componentes complementarios y pruebas</h2>
+<ul>
+  <li>Backend y analizador: <code>docker compose up --build</code> en <code>appsheet-backend/</code> (variables en <code>.env.example</code>).</li>
+  <li>Pruebas automatizadas: <code>go test -race ./...</code> en <code>appsheet-backend/</code> y <code>pytest</code> en <code>appsheet-backend/analizador/</code>.</li>
+  <li>Los README de cada carpeta tienen las instrucciones completas.</li>
+</ul>
+
+</body>
+</html>

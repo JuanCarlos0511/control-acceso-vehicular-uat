@@ -1,0 +1,50 @@
+@startuml actividad-solicitud
+skinparam defaultFontName "DejaVu Sans"
+skinparam defaultFontSize 12
+skinparam shadowing false
+skinparam ActivityBackgroundColor #FFFFFF
+skinparam ActivityBorderColor #1F3864
+skinparam ActivityDiamondBackgroundColor #FFFFFF
+skinparam ActivityDiamondBorderColor #1F3864
+skinparam SwimlaneTitleFontStyle bold
+
+|Alumno|
+start
+:Confirmar inscripción con su
+correo y contraseña de la UAT;
+|Backend|
+:Consultar situación escolar
+en el portal de alumnos;
+if (¿Inscrito?) then (no)
+  :Informar que no puede registrarse;
+  stop
+else (sí)
+  :Crear o actualizar su fila en Alumnos
+  con el nombre oficial;
+endif
+|Alumno|
+:Enviar solicitud en AppSheet: placa, NIV,
+fotos de INE y tarjeta de circulación;
+|Backend|
+:Leer las fotos con OCR;
+:Verificar INE (MRZ, CURP, vigencia)
+y cotejar el nombre con el padrón;
+:Comparar NIV y placa de la tarjeta;
+:Consultar REPUVE por NIV;
+:Prellenar la revisión;
+|Revisor|
+:Revisar el expediente desde la hoja privada
+y publicar la decisión;
+if (¿Aprobada?) then (sí)
+  |Backend|
+  :Emitir pase con código QR firmado;
+  |Alumno|
+  :Ver el pase en «Mis solicitudes»
+  y mostrarlo en la caseta;
+else (no)
+  |Alumno|
+  :Ver «En revisión» o la indicación
+  para enviar una nueva solicitud;
+endif
+stop
+@enduml

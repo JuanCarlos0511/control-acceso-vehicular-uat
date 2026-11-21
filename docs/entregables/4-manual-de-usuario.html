@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Manual de Usuario</title>
+<link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+<section class="portada">
+  <div class="nombre-documento">Manual de Usuario · Control de Acceso Vehicular UAT CUTM Sur</div>
+  <img class="logos" src="img/logos-uat-fit.png" alt="Universidad Autónoma de Tamaulipas y Facultad de Ingeniería Tampico">
+  <div class="institucion">UNIVERSIDAD AUTÓNOMA DE TAMAULIPAS</div>
+  <div class="dependencia">Facultad de Ingeniería Tampico · Centro Universitario Sur</div>
+  <div class="dependencia">Ingeniería en Sistemas Computacionales</div>
+  <div class="titulo">Sistema de Control de Acceso Vehicular<br>para la UAT CUTM Sur</div>
+  <div class="subtitulo">App de caseta y portal de administración</div>
+  <div><span class="tipo">Manual de usuario</span></div>
+  <table class="datos">
+    <tr><th>Evento</th><td>Concurso Hackatón · Facultad de Ingeniería Tampico</td></tr>
+    <tr><th>Equipo</th><td>Juan José Santiago Cruz<br>Jared Said Constantino Lemus<br>Juan Carlos Guzmán Antonio<br>Jocelyin Mateo Saldierna<br>Roberto Campillo Martínez</td></tr>
+    <tr><th>Versión</th><td>1.0</td></tr>
+  </table>
+  <div class="lugar">Tampico, Tamaulipas · 21 de noviembre de 2026</div>
+</section>
+
+<h1>Índice</h1>
+<nav class="indice">
+  <ol>
+    <li><a href="#s1">1. Introducción</a>
+      <ol>
+        <li><a href="#s1-1">1.1 A quién va dirigido</a></li>
+        <li><a href="#s1-2">1.2 Requisitos para usar el sistema</a></li>
+        <li><a href="#s1-3">1.3 Roles y permisos</a></li>
+      </ol></li>
+    <li><a href="#s2">2. Inicio de sesión</a>
+      <ol>
+        <li><a href="#s2-1">2.1 Entrar al sistema</a></li>
+        <li><a href="#s2-2">2.2 Comenzar el turno en la caseta</a></li>
+        <li><a href="#s2-3">2.3 Si tu cuenta no tiene acceso</a></li>
+        <li><a href="#s2-4">2.4 Terminar el turno y cerrar sesión</a></li>
+      </ol></li>
+    <li><a href="#s3">3. App de caseta</a>
+      <ol>
+        <li><a href="#s3-1">3.1 Pantalla de trabajo</a></li>
+        <li><a href="#s3-2">3.2 Registro de entradas</a></li>
+        <li><a href="#s3-3">3.3 Registro de salidas</a></li>
+        <li><a href="#s3-4">3.4 Registro de visitas</a></li>
+        <li><a href="#s3-5">3.5 Avisos al registrar</a></li>
+      </ol></li>
+    <li><a href="#s4">4. Portal de administración</a>
+      <ol>
+        <li><a href="#s4-1">4.1 Tablero</a></li>
+        <li><a href="#s4-2">4.2 Consultas</a></li>
+        <li><a href="#s4-3">4.3 Reportes</a></li>
+        <li><a href="#s4-4">4.4 Catálogos</a></li>
+        <li><a href="#s4-5">4.5 Gestión de usuarios</a></li>
+        <li><a href="#s4-6">4.6 Bitácora de actividades</a></li>
+      </ol></li>
+    <li><a href="#s5">5. Registro vehicular para alumnos</a></li>
+    <li><a href="#s6">6. Mensajes y solución de problemas</a></li>
+  </ol>
+</nav>
+
+<!-- ============================================================ -->
+<h1 id="s1">1. Introducción</h1>
+<p>El Sistema de Control de Acceso Vehicular registra las entradas y salidas de vehículos en las tres casetas del campus UAT CUTM Sur y permite consultarlas, obtener reportes y administrar a quién se le permite el acceso. Tiene dos aplicaciones:</p>
+<ul>
+  <li><strong>App de caseta</strong>: la usa el guardia en el celular para registrar entradas y salidas.</li>
+  <li><strong>Portal de administración</strong>: lo usan administradores y supervisores en la computadora para consultas, reportes, catálogos, usuarios y bitácora.</li>
+</ul>
+<div class="nota"><p>Las capturas de este manual se tomaron en el entorno de pruebas del equipo, con datos ficticios. Los nombres, placas y correos no corresponden a personas reales.</p></div>
+
+<h2 id="s1-1">1.1 A quién va dirigido</h2>
+<p>Al personal de las casetas, al personal de seguridad o coordinación que revisa la información y a los responsables administrativos que dan de alta vehículos, personas y usuarios.</p>
+
+<h2 id="s1-2">1.2 Requisitos para usar el sistema</h2>
+<ul>
+  <li>Un celular (para la caseta) o una computadora (para el portal) con un navegador actualizado y conexión a internet.</li>
+  <li>Una cuenta de Google (por ejemplo, Gmail).</li>
+  <li>Un rol asignado. En este prototipo, la primera vez que una cuenta entra queda dada de alta como Administrador; un administrador puede cambiarle el rol (sección <a href="#s4-5">4.5</a>).</li>
+</ul>
+
+<h2 id="s1-3">1.3 Roles y permisos</h2>
+<p>Cada usuario ve solo las opciones que su rol permite. El sistema también lo verifica en el servidor, así que una opción no permitida no puede usarse aunque se intente.</p>
+<table>
+  <caption>Qué puede hacer cada rol</caption>
+  <thead><tr><th>Función</th><th class="c">Guardia</th><th class="c">Supervisor</th><th class="c">Administrador</th></tr></thead>
+  <tbody>
+    <tr><td>Registrar entradas y salidas en la caseta</td><td class="c">Sí</td><td class="c">No</td><td class="c">Sí</td></tr>
+    <tr><td>Consultar movimientos y exportarlos</td><td class="c">Sí</td><td class="c">Sí</td><td class="c">Sí</td></tr>
+    <tr><td>Tablero y reportes</td><td class="c">No</td><td class="c">Sí</td><td class="c">Sí</td></tr>
+    <tr><td>Ver catálogos</td><td class="c">No</td><td class="c">Sí</td><td class="c">Sí</td></tr>
+    <tr><td>Agregar o editar vehículos, personas y casetas</td><td class="c">No</td><td class="c">No</td><td class="c">Sí</td></tr>
+    <tr><td>Gestión de usuarios del sistema</td><td class="c">No</td><td class="c">No</td><td class="c">Sí</td></tr>
+    <tr><td>Bitácora de actividades</td><td class="c">No</td><td class="c">Sí</td><td class="c">Sí</td></tr>
+  </tbody>
+</table>
+
+<!-- ============================================================ -->
+<h1 id="s2">2. Inicio de sesión</h1>
+
+<h2 id="s2-1">2.1 Entrar al sistema</h2>
+<p>El sistema no tiene contraseña propia: se entra con una cuenta de Google.</p>
+<ol>
+  <li>Abre la dirección del sistema en el navegador:
+    <ul>
+      <li>App de caseta: <code>https://script.google.com/macros/s/AKfycbznufn6ALqmmlaeK9rBj9KcoRq3gwFsCFbQI0jx3G_wXCkEfyWSmXT7BDJhIpl8wJG8DA/exec</code></li>
+      <li>Portal de administración: la misma dirección con <code>?app=admin</code> al final.</li>
+    </ul></li>
+  <li>Si el navegador no tiene una sesión abierta, Google te pedirá tu correo y tu contraseña de Google.</li>
+  <li>El sistema te reconoce por tu correo y abre la app con las opciones de tu rol.</li>
+</ol>
+<div class="nota"><p>Si tienes varias cuentas de Google abiertas en el mismo navegador, el sistema puede fallar al cargar. Usa una sola cuenta o una ventana de incógnito.</p></div>
+
+<h2 id="s2-2">2.2 Comenzar el turno en la caseta</h2>
+<p>La app de caseta muestra tu nombre y tu correo. Si tienes una caseta asignada, aparece seleccionada. Si no tienes caseta fija, elige en cuál vas a trabajar y pulsa <strong>Comenzar turno en Caseta N</strong>. Todos tus registros quedarán con esa caseta.</p>
+<figure class="movil">
+  <img src="img/c01-comenzar-turno.png" alt="Pantalla para comenzar el turno">
+  <figcaption>Comenzar turno: el guardia elige su caseta.</figcaption>
+</figure>
+
+<h2 id="s2-3">2.3 Si tu cuenta no tiene acceso</h2>
+<p>Si tu correo no está dado de alta o tu usuario está desactivado, verás la pantalla <strong>Tu cuenta no tiene acceso</strong> con el correo con el que entraste. Pide a un administrador que te registre con tu rol y tu caseta, o pulsa <strong>Usar otra cuenta</strong> si entraste con un correo equivocado.</p>
+<figure class="movil">
+  <img src="img/c10-sin-acceso.png" alt="Pantalla de cuenta sin acceso">
+  <figcaption>Cuenta sin acceso.</figcaption>
+</figure>
+
+<h2 id="s2-4">2.4 Terminar el turno y cerrar sesión</h2>
+<p>En la caseta, toca la pastilla con el nombre de la caseta y tus iniciales, arriba a la derecha. Se abre el panel del turno con la caseta, la hora de inicio y cuántas entradas y salidas registraste.</p>
+<ul>
+  <li><strong>Cambiar de caseta</strong>: vuelve a la pantalla para elegir caseta.</li>
+  <li><strong>Terminar turno</strong>: cierra tu cuenta de Google en ese teléfono, para que el siguiente guardia entre con la suya.</li>
+</ul>
+<p>En el portal, usa <strong>Cerrar sesión</strong>, arriba a la derecha.</p>
+<figure class="movil">
+  <img src="img/c09-opciones-turno.png" alt="Panel de opciones del turno">
+  <figcaption>Opciones del turno.</figcaption>
+</figure>
+
+<!-- ============================================================ -->
+<h1 id="s3">3. App de caseta</h1>
+
+<h2 id="s3-1">3.1 Pantalla de trabajo</h2>
+<p>Arriba está el campo <strong>Placa del vehículo</strong> y el botón <strong>Verificar placa</strong>. Debajo, la lista <strong>Hoy en esta caseta</strong> muestra los registros del día, del más reciente al más antiguo.</p>
+<p>Escribe la placa como aparece en el vehículo, con o sin guiones. El sistema la guarda sin espacios ni guiones y en mayúsculas («xyz-123-a» se guarda como «XYZ123A»); debe tener de 4 a 10 letras o números.</p>
+<figure class="movil">
+  <img src="img/c02-pantalla-de-trabajo.png" alt="Pantalla de trabajo de la caseta">
+  <figcaption>Pantalla de trabajo.</figcaption>
+</figure>
+
+<h2 id="s3-2">3.2 Registro de entradas</h2>
+<ol>
+  <li>Escribe la placa y pulsa <strong>Verificar placa</strong>.</li>
+  <li>Revisa los datos: propietario, tipo de usuario, matrícula o número de empleado, vehículo, si está <strong>Autorizado</strong> y si está fuera del campus.</li>
+  <li>Pulsa <strong>Registrar entrada</strong>. Si necesitas dejar constancia de algo (por ejemplo, una verificación por radio), antes pulsa <strong>Agregar nota</strong>.</li>
+  <li>Aparece <strong>Entrada registrada</strong> con la hora. La fecha y la hora las pone el sistema; no se capturan.</li>
+  <li>Pulsa <strong>Registrar otro vehículo</strong> para el siguiente.</li>
+</ol>
+<figure class="movil-par">
+  <img src="img/c03-placa-verificada.png" alt="Placa verificada">
+  <img src="img/c04-entrada-registrada.png" alt="Entrada registrada">
+  <figcaption>Placa verificada (izquierda) y entrada registrada (derecha).</figcaption>
+</figure>
+
+<h2 id="s3-3">3.3 Registro de salidas</h2>
+<ol>
+  <li>Escribe la placa y pulsa <strong>Verificar placa</strong>.</li>
+  <li>Si el vehículo está <strong>Dentro del campus</strong>, el sistema indica cuándo y por qué caseta entró y propone <strong>Registrar salida</strong> como botón principal.</li>
+  <li>Pulsa <strong>Registrar salida</strong>. Aparece <strong>Salida registrada</strong> con el tiempo que el vehículo estuvo dentro.</li>
+</ol>
+<figure class="movil-par">
+  <img src="img/c05-placa-dentro.png" alt="Vehículo dentro del campus">
+  <img src="img/c06-salida-registrada.png" alt="Salida registrada">
+  <figcaption>Vehículo dentro del campus (izquierda) y salida registrada (derecha).</figcaption>
+</figure>
+
+<h2 id="s3-4">3.4 Registro de visitas</h2>
+<p>Si la placa no está en el catálogo, el sistema muestra <strong>Placa no registrada</strong> y pide los datos de la visita:</p>
+<ol>
+  <li>Elige el <strong>Tipo de usuario</strong>. Viene marcado <strong>Visitante</strong>; cámbialo si el conductor es estudiante, docente o administrativo con un vehículo no registrado.</li>
+  <li>Escribe el <strong>Nombre del conductor</strong> y el <strong>Motivo de la visita</strong>.</li>
+  <li>Pulsa <strong>Registrar entrada</strong>. El registro se guarda con el aviso de que la placa no está en el catálogo.</li>
+</ol>
+<p>Cuando la visita salga, basta con verificar la placa y registrar la salida: el sistema toma el nombre y el motivo de la entrada.</p>
+<figure class="movil-par">
+  <img src="img/c07-visitante.png" alt="Datos de la visita">
+  <img src="img/c08-visitante-registrado.png" alt="Visita registrada">
+  <figcaption>Datos de la visita (izquierda) y entrada de la visita registrada (derecha).</figcaption>
+</figure>
+
+<h2 id="s3-5">3.5 Avisos al registrar</h2>
+<p>Estos avisos no impiden guardar el registro: informan al guardia para que aplique el protocolo de seguridad.</p>
+<table>
+  <caption>Avisos de la app de caseta</caption>
+  <thead><tr><th style="width:30%">Aviso</th><th>Qué significa</th></tr></thead>
+  <tbody>
+    <tr><td>Placa no registrada</td><td>La placa no está en el catálogo de vehículos. Se registra como visita.</td></tr>
+    <tr><td>No autorizado</td><td>El vehículo está en el catálogo pero su autorización está retirada.</td></tr>
+    <tr><td>Entrada duplicada</td><td>Se registra una entrada cuando el vehículo ya tenía una entrada sin salida.</td></tr>
+    <tr><td>Salida sin entrada</td><td>Se registra una salida sin una entrada previa del vehículo.</td></tr>
+  </tbody>
+</table>
+
+<!-- ============================================================ -->
+<h1 id="s4">4. Portal de administración</h1>
+<p>El menú superior tiene <strong>Tablero</strong>, <strong>Consultas</strong>, <strong>Reportes</strong>, <strong>Catálogos</strong> y <strong>Administración</strong>. Solo aparecen las secciones que tu rol permite.</p>
+
+<h2 id="s4-1">4.1 Tablero</h2>
+<p>Resume el día: entradas, salidas, vehículos dentro del campus en este momento y entradas de visita; afluencia por hora; totales por caseta; últimos movimientos y vehículos que llevan más tiempo dentro. Usa el filtro de caseta y <strong>Actualizar datos</strong> para refrescarlo.</p>
+<figure class="captura">
+  <img src="img/a01-tablero.png" alt="Tablero">
+  <figcaption>Tablero del día.</figcaption>
+</figure>
+
+<h2 id="s4-2">4.2 Consultas</h2>
+<ol>
+  <li>Abre <strong>Consultas</strong>.</li>
+  <li>Llena uno o varios filtros: <strong>Placa</strong> (completa o parte), <strong>Desde</strong> y <strong>Hasta</strong>, <strong>Caseta</strong>, <strong>Tipo de usuario</strong> y <strong>Movimiento</strong> (entradas, salidas o ambos).</li>
+  <li>Pulsa <strong>Buscar movimientos</strong>. Arriba se indica cuántos movimientos coinciden.</li>
+  <li>Para descargar el resultado, pulsa <strong>Exportar a Excel</strong> o <strong>Exportar a PDF</strong>. Cada exportación queda en la bitácora.</li>
+</ol>
+<p><strong>Limpiar filtros</strong> regresa a los movimientos del día.</p>
+<figure class="captura">
+  <img src="img/a12-consulta-placa.png" alt="Consulta por placa">
+  <figcaption>Consulta del historial de una placa en noviembre.</figcaption>
+</figure>
+
+<h2 id="s4-3">4.3 Reportes</h2>
+<ol>
+  <li>Abre <strong>Reportes</strong> y elige el periodo con <strong>Desde</strong> y <strong>Hasta</strong> (hasta 366 días) y, si quieres, una caseta.</li>
+  <li>Revisa las secciones:
+    <ul>
+      <li><strong>Entradas y salidas por periodo</strong>, agrupadas por día, semana o mes.</li>
+      <li><strong>Por caseta</strong> y <strong>por tipo de usuario</strong>.</li>
+      <li><strong>Vehículos más frecuentes</strong>.</li>
+      <li><strong>Horarios de mayor afluencia</strong>: mapa de calor por día de la semana y hora.</li>
+    </ul></li>
+  <li>Descarga el reporte con <strong>Exportar a Excel</strong> o <strong>Exportar a PDF</strong>.</li>
+</ol>
+<figure class="captura">
+  <img src="img/a03b-reportes-pantalla.png" alt="Reportes">
+  <figcaption>Reporte de entradas y salidas por periodo.</figcaption>
+</figure>
+<figure class="captura">
+  <img src="img/a03-reportes.png" alt="Reportes completos" style="width:72%">
+  <figcaption>Página completa de reportes: por caseta, por tipo de usuario, vehículos más frecuentes y horarios de mayor afluencia.</figcaption>
+</figure>
+
+<h2 id="s4-4">4.4 Catálogos</h2>
+<p>Tiene tres pestañas: <strong>Vehículos</strong>, <strong>Personas</strong> y <strong>Casetas</strong>. Cada una tiene buscador, filtros y la columna <strong>Acciones</strong> con <strong>Editar</strong>. Solo el administrador puede agregar o editar.</p>
+<h3>Agregar un vehículo</h3>
+<ol>
+  <li>En la pestaña <strong>Vehículos</strong>, pulsa <strong>Agregar vehículo</strong>.</li>
+  <li>Escribe la placa, busca a la persona dueña por nombre o matrícula y llena marca, modelo y color.</li>
+  <li>Guarda. Si la placa ya existe, el sistema lo indica en el campo.</li>
+</ol>
+<p>Si la persona aún no existe, primero dala de alta en <strong>Personas</strong> con <strong>Agregar persona</strong>: nombre, tipo (estudiante, docente, administrativo o visitante), matrícula o número de empleado (obligatorio salvo para visitantes) y teléfono.</p>
+<figure class="captura">
+  <img src="img/a11-agregar-vehiculo.png" alt="Agregar vehículo">
+  <figcaption>Catálogo de vehículos con el formulario para agregar un vehículo.</figcaption>
+</figure>
+<h3>Retirar un registro</h3>
+<p>No se borra nada, para no perder el historial. Para retirar un vehículo, edítalo y quita su autorización; para una persona o una caseta, desactívala. Para cambiar la placa de un vehículo, desautoriza el anterior y agrega el nuevo.</p>
+<figure class="captura">
+  <img src="img/a05-catalogo-personas.png" alt="Catálogo de personas">
+  <figcaption>Catálogo de personas.</figcaption>
+</figure>
+<figure class="captura">
+  <img src="img/a06-catalogo-casetas.png" alt="Catálogo de casetas">
+  <figcaption>Catálogo de casetas.</figcaption>
+</figure>
+
+<h2 id="s4-5">4.5 Gestión de usuarios</h2>
+<p>En <strong>Administración</strong>, la sección <strong>Usuarios del sistema</strong> lista quién puede entrar, con su rol, su caseta y su estado.</p>
+<h3>Agregar un usuario</h3>
+<ol>
+  <li>Pulsa <strong>Agregar usuario</strong>.</li>
+  <li>Escribe el correo de su cuenta de Google en <strong>Correo institucional</strong> y el <strong>Nombre</strong>, y elige el <strong>Rol</strong>: Guardia, Supervisor o Administrador.</li>
+  <li>Para un guardia, elige su <strong>Caseta</strong> o «Sin caseta fija»; sin caseta fija, el guardia la elige al comenzar el turno.</li>
+  <li>Pulsa <strong>Guardar usuario</strong>. Desde ese momento la persona puede entrar con su cuenta.</li>
+</ol>
+<div class="nota"><p>Como el prototipo se publica desde una cuenta personal, Google solo comparte con el sistema el correo de esa cuenta. Las demás personas entran una vez, quedan registradas como «Invitado …» y el administrador les asigna el rol y la caseta con <strong>Editar</strong>.</p></div>
+<h3>Editar o desactivar un usuario</h3>
+<p>Pulsa <strong>Editar</strong> en la fila del usuario para cambiar su rol o su caseta, o para desactivarlo. El sistema no permite dejar el sistema sin un administrador activo ni que un usuario se desactive a sí mismo.</p>
+<figure class="captura">
+  <img src="img/a10-agregar-usuario.png" alt="Agregar usuario">
+  <figcaption>Usuarios del sistema con el formulario para agregar un usuario.</figcaption>
+</figure>
+
+<h2 id="s4-6">4.6 Bitácora de actividades</h2>
+<p>Debajo de los usuarios, en <strong>Administración</strong>, la <strong>Bitácora de actividades</strong> muestra cada acceso, registro, cambio, exportación e intento rechazado, con fecha y hora, usuario, actividad, resultado y detalle. Filtra por <strong>Desde</strong>, <strong>Hasta</strong>, <strong>Usuario</strong> y <strong>Actividad</strong>. La bitácora no se puede editar ni borrar.</p>
+<figure class="captura">
+  <img src="img/a08-administracion-completa.png" alt="Bitácora de actividades" style="width:78%">
+  <figcaption>Administración: usuarios del sistema y bitácora de actividades.</figcaption>
+</figure>
+<p>El supervisor ve el mismo portal en modo de solo lectura: no tiene botones para agregar ni editar.</p>
+
+<!-- ============================================================ -->
+<h1 id="s5">5. Registro vehicular para alumnos</h1>
+<p>Los alumnos pueden solicitar el registro de su vehículo en línea, sin acudir de forma presencial:</p>
+<ol>
+  <li><strong>Confirmar la inscripción.</strong> En <code>https://hackathonfrontend.452111.xyz</code>, el alumno entra con su correo institucional o matrícula y su contraseña de la UAT. El sistema verifica que está inscrito y lo da de alta en el padrón con su nombre oficial. La contraseña se usa únicamente para esa verificación y no se guarda.</li>
+  <li><strong>Enviar la solicitud.</strong> En el mismo portal, captura la placa y el NIV (17 caracteres), adjunta las fotos de su INE y de su tarjeta de circulación y acepta el aviso de privacidad.</li>
+  <li><strong>Consultar el resultado.</strong> En el portal ve el estado: pendiente, en revisión, requiere atención o aprobada, con la indicación del revisor.</li>
+  <li><strong>Mostrar el pase.</strong> Si la solicitud se aprueba, en el detalle aparece su <strong>pase de acceso</strong> con código QR.</li>
+</ol>
+<figure class="movil">
+  <img src="img/r01-registro-alumno.png" alt="Sitio de registro de alumnos">
+  <figcaption>Sitio de registro de alumnos.</figcaption>
+</figure>
+<div class="nota"><p><strong>Para el personal de Control Vehicular:</strong> las solicitudes se revisan en la hoja privada con el menú <strong>Registro vehicular → Abrir revisión de la solicitud</strong>. El sistema deja la revisión prellenada; el revisor la confirma y usa <strong>Publicar resultado seleccionado</strong>.</p></div>
+
+<!-- ============================================================ -->
+<h1 id="s6">6. Mensajes y solución de problemas</h1>
+<table>
+  <caption>Mensajes frecuentes</caption>
+  <thead><tr><th style="width:32%">Mensaje o situación</th><th>Qué hacer</th></tr></thead>
+  <tbody>
+    <tr><td>«Tu cuenta no tiene acceso»</td><td>Pide a un administrador que te dé de alta o que reactive tu usuario. Verifica que entraste con la cuenta de Google correcta.</td></tr>
+    <tr><td>No se pudo identificar tu cuenta</td><td>El sistema no recibió tu correo. Cierra las demás cuentas de Google o usa una ventana de incógnito; si sigue, avisa al administrador.</td></tr>
+    <tr><td>«No hay conexión con el servidor»</td><td>Revisa la conexión del celular y vuelve a intentar. Si no hay conexión, anota el registro en el formato en papel.</td></tr>
+    <tr><td>El sistema está ocupado</td><td>Otra caseta está guardando al mismo tiempo. Espera un momento y vuelve a pulsar el botón.</td></tr>
+    <tr><td>«No tienes permiso para esta acción»</td><td>Tu rol no permite esa función. Si la necesitas, pídela a un administrador.</td></tr>
+    <tr><td>Un campo marcado en rojo</td><td>Corrige el dato que indica el mensaje junto al campo; por ejemplo, la placa debe tener de 4 a 10 letras o números.</td></tr>
+    <tr><td>«Esta placa no tiene números»</td><td>Revisa que la placa esté bien escrita antes de verificarla.</td></tr>
+  </tbody>
+</table>
+
+</body>
+</html>

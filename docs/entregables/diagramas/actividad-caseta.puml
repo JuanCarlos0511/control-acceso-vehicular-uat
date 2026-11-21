@@ -1,0 +1,58 @@
+@startuml actividad-caseta
+skinparam defaultFontName "DejaVu Sans"
+skinparam defaultFontSize 12
+skinparam shadowing false
+skinparam ActivityBackgroundColor #FFFFFF
+skinparam ActivityBorderColor #1F3864
+skinparam ActivityDiamondBackgroundColor #FFFFFF
+skinparam ActivityDiamondBorderColor #1F3864
+skinparam SwimlaneTitleFontStyle bold
+
+|Guardia|
+start
+:Teclear la placa del vehículo;
+:Pulsar «Verificar placa»;
+|Sistema|
+:Normalizar la placa
+(mayúsculas, sin espacios ni guiones);
+if (¿Placa válida? (4 a 10 letras o números)) then (no)
+  :Marcar el campo con el error;
+  |Guardia|
+  :Corregir la placa;
+  stop
+else (sí)
+endif
+|Sistema|
+:Buscar vehículo, propietario
+y último movimiento;
+if (¿Vehículo registrado?) then (sí)
+  :Mostrar propietario, tipo de usuario,
+  autorización y si está dentro del campus;
+else (no)
+  :Avisar «Placa no registrada»
+  y pedir datos de la visita;
+  |Guardia|
+  :Capturar tipo de usuario,
+  nombre del conductor y motivo;
+endif
+|Guardia|
+:Pulsar «Registrar entrada» o «Registrar salida»
+(el sistema propone el que corresponde);
+|Sistema|
+:Obtener el candado de escritura;
+:Tomar fecha y hora del servidor
+y la caseta del turno;
+:Guardar el movimiento en la hoja Movimientos;
+:Anotar la acción en la Bitácora;
+if (¿Hay advertencias?) then (sí)
+  :Mostrar advertencias
+  (no registrado, no autorizado,
+  entrada duplicada, salida sin entrada);
+else (no)
+endif
+:Mostrar confirmación
+(y tiempo de permanencia si es salida);
+|Guardia|
+:Levantar la pluma;
+stop
+@enduml

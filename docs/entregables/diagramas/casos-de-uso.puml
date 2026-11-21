@@ -1,0 +1,54 @@
+@startuml casos-de-uso
+!pragma layout smetana
+skinparam defaultFontName "DejaVu Sans"
+skinparam defaultFontSize 12
+skinparam shadowing false
+skinparam actorStyle awesome
+skinparam usecase {
+  BackgroundColor #FFFFFF
+  BorderColor #1F3864
+}
+skinparam rectangle {
+  BorderColor #1F3864
+  FontStyle bold
+}
+top to bottom direction
+
+actor "Usuario del sistema" as U
+actor "Guardia" as G
+actor "Supervisor" as S
+actor "Administrador" as A
+G -up-|> U
+S -up-|> U
+A -up-|> G
+A -up-|> S
+
+rectangle "Sistema de Control de Acceso Vehicular (Apps Script + Sheets)" {
+  usecase "CU-01 Iniciar sesión\ny comenzar turno" as CU01
+  usecase "CU-05 Consultar movimientos" as CU05
+  usecase "CU-02 Registrar entrada" as CU02
+  usecase "CU-03 Registrar salida" as CU03
+  usecase "Verificar placa" as VP
+  usecase "CU-04 Registrar visita\n(placa no registrada)" as CU04
+  usecase "CU-06 Generar reportes" as CU06
+  usecase "CU-09 Consultar bitácora" as CU09
+  usecase "Exportar a Excel o PDF" as EXP
+  usecase "CU-07 Administrar catálogos" as CU07
+  usecase "CU-08 Administrar usuarios" as CU08
+}
+
+U --> CU01
+U --> CU05
+G --> CU02
+G --> CU03
+S --> CU06
+S --> CU09
+A --> CU07
+A --> CU08
+
+CU02 ..> VP : <<include>>
+CU03 ..> VP : <<include>>
+CU04 ..> CU02 : <<extend>>
+EXP ..> CU05 : <<extend>>
+EXP ..> CU06 : <<extend>>
+@enduml
