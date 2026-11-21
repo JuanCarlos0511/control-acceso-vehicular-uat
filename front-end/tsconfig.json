@@ -16,5 +16,5 @@
     "types": ["vite/client", "node"],
     "paths": { "@shared/*": ["./shared/*"] }
   },
-  "include": ["shared", "app-caseta/src", "portal-admin/src", "vite.config.ts"]
+  "include": ["shared", "app-caseta/src", "portal-admin/src", "registro-alumno/src", "vite.config.ts"]
 }

@@ -6,9 +6,11 @@
   "scripts": {
     "dev:caseta": "vite --mode caseta",
     "dev:admin": "vite --mode admin",
+    "dev:registro": "vite --mode registro",
     "build:caseta": "vite build --mode caseta",
     "build:admin": "vite build --mode admin",
-    "build": "npm run typecheck && node -e \"require('fs').rmSync('dist',{recursive:true,force:true})\" && npm run build:caseta && npm run build:admin",
+    "build:registro": "vite build --mode registro",
+    "build": "npm run typecheck && node -e \"require('fs').rmSync('dist',{recursive:true,force:true})\" && npm run build:caseta && npm run build:admin && npm run build:registro",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {

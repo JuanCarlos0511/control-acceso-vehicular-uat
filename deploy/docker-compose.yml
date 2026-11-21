@@ -1,0 +1,132 @@
+# Stack del hackatón en el VPS con Dokploy. El Traefik de Dokploy enruta por
+# etiquetas en la red externa dokploy-network y emite los certificados.
+#
+#   https://${DOMINIO_BACKEND}   backend en Go (validación AppSheet, pases QR, registro de alumnos)
+#   https://${DOMINIO_FRONTEND}  registro del alumno + caseta y panel en modo demostración
+#   https://${DOMINIO_SCRAP}     scrap-uat-service (protegido con API key)
+#
+# Los nombres de servicio llevan el prefijo hackathon- porque dokploy-network
+# es compartida: un nombre genérico como "backend" chocaría con otros proyectos.
+name: hackathon
+
+x-registro: &registro
+  logging:
+    driver: json-file
+    options: { max-size: "10m", max-file: "3" }
+  restart: unless-stopped
+
+services:
+  hackathon-backend:
+    <<: *registro
+    build: ../appsheet-backend
+    env_file: .env
+    environment:
+      ANALIZADOR_URL: http://hackathon-analizador:8000
+      UAT_SERVICIO_URL: http://hackathon-scrap:3100
+      GOOGLE_APPLICATION_CREDENTIALS: /run/secrets/google/cuenta-servicio.json
+    volumes:
+      - ./credenciales:/run/secrets/google:ro
+    depends_on: [hackathon-analizador, hackathon-scrap]
+    mem_limit: 256m
+    read_only: true
+    security_opt: ["no-new-privileges:true"]
+    networks: [interna, dokploy-network]
+    labels:
+      traefik.enable: "true"
+      traefik.docker.network: dokploy-network
+      traefik.http.routers.hackathon-backend-web.rule: Host(`${DOMINIO_BACKEND}`)
+      traefik.http.routers.hackathon-backend-web.entrypoints: web
+      traefik.http.routers.hackathon-backend-web.middlewares: redirect-to-https@file
+      traefik.http.routers.hackathon-backend-web.service: hackathon-backend
+      traefik.http.routers.hackathon-backend.rule: Host(`${DOMINIO_BACKEND}`)
+      traefik.http.routers.hackathon-backend.entrypoints: websecure
+      traefik.http.routers.hackathon-backend.tls.certresolver: letsencrypt
+      traefik.http.routers.hackathon-backend.service: hackathon-backend
+      traefik.http.services.hackathon-backend.loadbalancer.server.port: "8080"
+
+  hackathon-analizador:
+    <<: *registro
+    build: ../appsheet-backend/analizador
+    environment:
+      ANALIZADOR_TOKEN: ${ANALIZADOR_TOKEN:?}
+      REPUVE_HABILITADO: ${REPUVE_HABILITADO:-true}
+      REPUVE_TIMEOUT: ${REPUVE_TIMEOUT:-2m}
+      REPUVE_INTERVALO_MIN: ${REPUVE_INTERVALO_MIN:-20s}
+      REPUVE_CACHE_TTL: ${REPUVE_CACHE_TTL:-6h}
+      REPUVE_DEPURACION_DIR: ${REPUVE_DEPURACION_DIR:-}
+    # Chromium usa /dev/shm; el valor por defecto de Docker (64 MB) se queda corto.
+    shm_size: "1gb"
+    mem_limit: 3g
+    cpus: 2
+    security_opt: ["no-new-privileges:true"]
+    networks: [interna]
+
+  hackathon-scrap:
+    <<: *registro
+    build: ${SCRAP_UAT_DIR:-../../scrap-uat-service}
+    init: true
+    environment:
+      NODE_ENV: production
+      HOST: 0.0.0.0
+      PORT: 3100
+      LOG_LEVEL: ${SCRAP_LOG_LEVEL:-info}
+      API_GATEWAY_KEYS: ${UAT_SERVICIO_CLAVE:?}
+      CORS_ORIGINS: https://${DOMINIO_BACKEND}
+      TRUST_PROXY: "true"
+      UAT_TEACHER_BASE_URL: https://administracionescolar.uat.edu.mx
+      UAT_STUDENT_BASE_URL: https://alumnossur.uat.edu.mx
+      UAT_HTTP_TIMEOUT_MS: 30000
+      UAT_SESSION_TTL_MINUTES: 30
+    mem_limit: 512m
+    read_only: true
+    tmpfs: ["/tmp:size=32m,mode=1777"]
+    security_opt: ["no-new-privileges:true"]
+    stop_grace_period: 15s
+    networks: [interna, dokploy-network]
+    labels:
+      traefik.enable: "true"
+      traefik.docker.network: dokploy-network
+      traefik.http.routers.hackathon-scrap-web.rule: Host(`${DOMINIO_SCRAP}`)
+      traefik.http.routers.hackathon-scrap-web.entrypoints: web
+      traefik.http.routers.hackathon-scrap-web.middlewares: redirect-to-https@file
+      traefik.http.routers.hackathon-scrap-web.service: hackathon-scrap
+      traefik.http.routers.hackathon-scrap.rule: Host(`${DOMINIO_SCRAP}`)
+      traefik.http.routers.hackathon-scrap.entrypoints: websecure
+      traefik.http.routers.hackathon-scrap.tls.certresolver: letsencrypt
+      traefik.http.routers.hackathon-scrap.service: hackathon-scrap
+      traefik.http.services.hackathon-scrap.loadbalancer.server.port: "3100"
+
+  hackathon-frontend:
+    <<: *registro
+    build:
+      context: ../front-end
+      args:
+        VITE_BACKEND_URL: https://${DOMINIO_BACKEND}
+        VITE_DEMO: "true"
+    mem_limit: 64m
+    read_only: true
+    tmpfs: ["/tmp:size=16m"]
+    security_opt: ["no-new-privileges:true"]
+    networks: [dokploy-network]
+    labels:
+      traefik.enable: "true"
+      traefik.docker.network: dokploy-network
+      traefik.http.routers.hackathon-frontend-web.rule: Host(`${DOMINIO_FRONTEND}`)
+      traefik.http.routers.hackathon-frontend-web.entrypoints: web
+      traefik.http.routers.hackathon-frontend-web.middlewares: redirect-to-https@file
+      traefik.http.routers.hackathon-frontend-web.service: hackathon-frontend
+      traefik.http.routers.hackathon-frontend.rule: Host(`${DOMINIO_FRONTEND}`)
+      traefik.http.routers.hackathon-frontend.entrypoints: websecure
+      traefik.http.routers.hackathon-frontend.tls.certresolver: letsencrypt
+      traefik.http.routers.hackathon-frontend.service: hackathon-frontend
+      traefik.http.services.hackathon-frontend.loadbalancer.server.port: "8080"
+
+networks:
+  # Subred explícita: en este VPS los rangos predeterminados de Docker ya están
+  # todos ocupados ("all predefined address pools have been fully subnetted").
+  interna:
+    ipam:
+      config:
+        - subnet: ${RED_INTERNA_SUBRED:-10.213.7.0/24}
+  dokploy-network:
+    external: true

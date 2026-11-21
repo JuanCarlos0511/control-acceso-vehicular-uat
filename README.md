@@ -14,6 +14,9 @@ Sistema web para registrar y administrar las entradas y salidas de vehículos en
 
 - `docs/contrato-api.md`: contrato entre frontend y backend (acciones, tipos, errores y permisos)
 - `front-end/`: app de caseta, portal de administración y código compartido (ver su `README.md`)
+- `appsheet/`: plantilla y configuración del registro vehicular estudiantil en AppSheet, con revisión de expedientes en Google Sheets
+- `appsheet-backend/`: backend en Go (con un analizador de documentos en Python) que valida automáticamente las solicitudes de AppSheet: INE contra el padrón, tarjeta de circulación y consulta a REPUVE. También da de alta a los alumnos que confirman su inscripción con su cuenta institucional (ver su `README.md`)
+- `deploy/`: despliegue en el VPS con Dokploy. Backend en `hackathon.452111.xyz`, frontend en `hackathonfrontend.452111.xyz` y `scrap-uat-service` en `hackathonapi.452111.xyz`
 
 ## Módulos
 

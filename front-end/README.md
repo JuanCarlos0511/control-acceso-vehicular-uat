@@ -1,11 +1,12 @@
 # Front-end
 
-Dos aplicaciones web que comparten código y se sirven desde el mismo proyecto de Apps Script:
+Tres aplicaciones web que comparten código. La caseta y el panel se sirven desde el proyecto de Apps Script; el registro de alumnos se publica aparte y habla con el backend en Go (`appsheet-backend/`):
 
 | Carpeta | Para quién | Resultado de la compilación |
 |---|---|---|
 | `app-caseta/` | Guardias, en el celular | `dist/app-caseta.html` |
 | `portal-admin/` | Administradores y supervisores, en escritorio | `dist/portal-admin.html` |
+| `registro-alumno/` | Alumnos: confirman con su cuenta institucional que están inscritos | `dist/registro-alumno.html` |
 | `shared/` | Código común: tipos del contrato, cliente de la API, mock, estilos y componentes | — |
 
 **Stack:** React 19, TypeScript, Vite y Tailwind 4. Cada app se compila en **un solo archivo HTML** (con `vite-plugin-singlefile`), porque eso es lo que Apps Script puede servir con `HtmlService`.
@@ -18,7 +19,8 @@ Requiere Node 22 o más reciente.
 npm install
 npm run dev:caseta   # http://localhost:5173
 npm run dev:admin    # http://localhost:5174
-npm run build        # revisa tipos y genera dist/app-caseta.html y dist/portal-admin.html
+npm run dev:registro # http://localhost:5175 (VITE_BACKEND_URL=http://localhost:8080 para usar un backend local)
+npm run build        # revisa tipos y genera los tres HTML en dist/
 ```
 
 ### Desarrollo sin backend
@@ -38,6 +40,15 @@ Para probar con otro usuario, agrega `?rol=` a la URL:
 | `SUPERVISOR` | Solo lectura |
 | `ADMIN` (por defecto en el panel) | Todo |
 | `INACTIVO`, `NOREG`, `SINID` | Pantallas de error de acceso |
+
+### Publicar fuera de Apps Script
+
+`Dockerfile` y `nginx.conf` sirven las tres apps como sitio estático: `/` es el registro de alumnos, `/caseta` y `/admin` las otras dos. Variables de compilación:
+
+- `VITE_BACKEND_URL`: URL del backend en Go para el registro de alumnos.
+- `VITE_DEMO=true`: incluye el mock en la compilación de la caseta y el panel y muestra el aviso «Demostración · datos ficticios». Sin Apps Script no tienen otro backend.
+
+El despliegue está en `deploy/`.
 
 ## Reglas
 

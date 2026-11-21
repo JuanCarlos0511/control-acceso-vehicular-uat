@@ -21,3 +21,15 @@ front-end/dist/
 
 # clasp: cada quien apunta a su propio proyecto
 .clasp.json
+
+# Backend de AppSheet
+appsheet-backend/.env
+appsheet-backend/credenciales/
+appsheet-backend/analizador/.venv/
+__pycache__/
+.pytest_cache/
+
+# Despliegue
+deploy/.env
+deploy/credenciales/
+deploy/.env.respaldo-*

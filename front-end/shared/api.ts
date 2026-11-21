@@ -42,7 +42,8 @@ export async function llamarApi<A extends Accion>(
         .api({ accion, datos });
     });
   }
-  if (import.meta.env.DEV) {
+  // VITE_DEMO=true incluye el mock en la compilación para publicar una demostración fuera de Apps Script.
+  if (import.meta.env.DEV || import.meta.env.VITE_DEMO === 'true') {
     const { mockApi } = await import('./mock');
     return mockApi(accion, datos);
   }

@@ -2,6 +2,7 @@
 
 @source "../app-caseta";
 @source "../portal-admin";
+@source "../registro-alumno";
 @source ".";
 
 /* Señalización vial: asfalto para entradas, amarillo de pintura vial para salidas. */

@@ -1,0 +1,31 @@
+services:
+  backend:
+    build: .
+    env_file: .env
+    environment:
+      ANALIZADOR_URL: http://analizador:8000
+      GOOGLE_APPLICATION_CREDENTIALS: /run/secrets/google.json
+    ports:
+      - "8080:8080"
+    volumes:
+      # Llave de la cuenta de servicio con acceso de lectura a la carpeta de fotos en Drive.
+      - ./credenciales/cuenta-servicio.json:/run/secrets/google.json:ro
+    depends_on:
+      - analizador
+    restart: unless-stopped
+
+  analizador:
+    build: ./analizador
+    # Solo recibe lo que necesita; no ve las llaves de AppSheet ni de Drive.
+    environment:
+      ANALIZADOR_TOKEN: ${ANALIZADOR_TOKEN:-}
+      REPUVE_HABILITADO: ${REPUVE_HABILITADO:-true}
+      REPUVE_TIMEOUT: ${REPUVE_TIMEOUT:-2m}
+      REPUVE_INTERVALO_MIN: ${REPUVE_INTERVALO_MIN:-20s}
+      REPUVE_CACHE_TTL: ${REPUVE_CACHE_TTL:-6h}
+      REPUVE_DEPURACION_DIR: ${REPUVE_DEPURACION_DIR:-}
+    expose:
+      - "8000"
+    # Chromium usa /dev/shm; el valor por defecto de Docker (64 MB) se queda corto.
+    shm_size: "1gb"
+    restart: unless-stopped
