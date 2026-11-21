@@ -687,12 +687,12 @@
   <caption>Herramientas de inteligencia artificial</caption>
   <thead><tr><th style="width:30%">Herramienta</th><th>Uso</th></tr></thead>
   <tbody>
-    <tr><td>Claude Code, con el modelo Claude Opus 5.5 (Anthropic)</td><td>Asistente en la terminal, con acceso al repositorio del proyecto. Se usó para analizar las bases, proponer la arquitectura, definir el contrato de API, programar la interfaz web, elaborar diagramas y dar formato a la documentación. Cada resultado fue revisado por el equipo antes de integrarse.</td></tr>
+    <tr><td>Claude Code, con el modelo Claude Opus 5.5 (Anthropic)</td><td>Asistente en la terminal, con acceso al repositorio del proyecto. Se usó para analizar las bases, proponer la arquitectura, definir el contrato de API, programar la interfaz web y el servidor de Apps Script, elaborar diagramas y dar formato a la documentación. Cada resultado fue revisado por el equipo antes de integrarse.</td></tr>
   </tbody>
 </table>
 
 <h2>A.2 Evidencias: prompts y resultados</h2>
-<p>Claude Code guarda localmente el registro de cada sesión. La tabla resume los prompts principales con su fecha y hora; las figuras muestran tres extractos del registro (prompt textual y resultado resumido) y un commit del repositorio público marcado como coautoría de la IA.</p>
+<p>El detalle completo está en el documento «Declaración y evidencias de uso de IA». Claude Code guarda localmente el registro de cada sesión. La tabla resume los prompts principales con su fecha y hora; las figuras muestran tres extractos del registro (prompt textual y resultado resumido) y un commit del repositorio público marcado como coautoría de la IA.</p>
 <table class="compacta">
   <caption>Registro de sesiones con IA</caption>
   <thead><tr><th style="width:15%">Fecha y hora</th><th style="width:13%">Actividad</th><th style="width:34%">Prompt</th><th>Resultado</th></tr></thead>
@@ -705,6 +705,7 @@
     <tr><td>20/11/2026 22:42</td><td>Programación</td><td>«Empieza haciendo el frontend en carpeta front-end y portal-admin, app-caseta…»</td><td>App de caseta y portal de administración en React y TypeScript, revisados con TypeScript y compilación (commit <code>d8df75e</code>).</td></tr>
     <tr><td>21/11/2026 07:40</td><td>Integración</td><td>«Revisa si hay actualizaciones de otra rama o algo»</td><td>Revisión de la rama del backend e integración de las ramas en <code>main</code>.</td></tr>
     <tr><td>21/11/2026 07:45</td><td>Documentación</td><td>«revisa el pdf y una imagen que agregue. Son entregables…»</td><td>Contraste del borrador con el sistema, diagramas UML y redacción de los entregables en formato de informe.</td></tr>
+    <tr><td>21/11/2026 08:47</td><td>Programación</td><td>«Y para lo de apps scripts. Es facil de implementar como para que tu lo hagas?»</td><td>Servidor de Apps Script con las 22 acciones sobre Google Sheets, 49 pruebas automatizadas y publicación como aplicación web (commit <code>f9bb763</code>).</td></tr>
   </tbody>
 </table>
 <figure>
@@ -737,7 +738,7 @@
   <tbody>
     <tr><td>Análisis</td><td class="c">35 %</td><td>La IA hizo la primera lectura de las bases y propuso requisitos; el cuestionario, las entrevistas, las fotografías y la validación de requisitos fueron del equipo.</td></tr>
     <tr><td>Diseño</td><td class="c">55 %</td><td>La IA propuso el contrato de API, las maquetas y los diagramas; el equipo decidió la autenticación, el alcance y los cambios a la interfaz.</td></tr>
-    <tr><td>Programación</td><td class="c">65 %</td><td>La interfaz web se generó con IA y el equipo la revisó y probó; la integración, el despliegue y la configuración de las aplicaciones fueron del equipo.</td></tr>
+    <tr><td>Programación</td><td class="c">70 %</td><td>La interfaz web y el servidor de Apps Script se generaron con IA y el equipo los revisó, probó y publicó; la configuración de AppSheet y el despliegue del backend fueron del equipo.</td></tr>
     <tr><td>Documentación</td><td class="c">60 %</td><td>La IA redactó y dio formato a los documentos a partir del contenido del equipo: entrevistas, fotografías, decisiones y correcciones.</td></tr>
   </tbody>
 </table>

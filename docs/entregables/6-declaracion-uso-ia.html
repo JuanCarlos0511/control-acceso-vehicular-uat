@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Declaración y Evidencias de Uso de IA</title>
+<link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+<section class="portada">
+  <div class="nombre-documento">Declaración y Evidencias de Uso de IA · Control de Acceso Vehicular UAT CUTM Sur</div>
+  <img class="logos" src="img/logos-uat-fit.png" alt="Universidad Autónoma de Tamaulipas y Facultad de Ingeniería Tampico">
+  <div class="institucion">UNIVERSIDAD AUTÓNOMA DE TAMAULIPAS</div>
+  <div class="dependencia">Facultad de Ingeniería Tampico · Centro Universitario Sur</div>
+  <div class="dependencia">Ingeniería en Sistemas Computacionales</div>
+  <div class="titulo">Sistema de Control de Acceso Vehicular<br>para la UAT CUTM Sur</div>
+  <div class="subtitulo">Solución basada en Google Apps Script y Google Sheets</div>
+  <div><span class="tipo">Declaración y evidencias de uso de IA</span></div>
+  <table class="datos">
+    <tr><th>Evento</th><td>Concurso Hackatón · Facultad de Ingeniería Tampico</td></tr>
+    <tr><th>Equipo</th><td>Juan José Santiago Cruz<br>Jared Said Constantino Lemus<br>Juan Carlos Guzmán Antonio<br>Jocelyin Mateo Saldierna<br>Roberto Campillo Martínez</td></tr>
+    <tr><th>Versión</th><td>1.0</td></tr>
+  </table>
+  <div class="lugar">Tampico, Tamaulipas · 21 de noviembre de 2026</div>
+</section>
+
+<h1>Índice</h1>
+<nav class="indice">
+  <ol>
+    <li><a href="#s1">1. Herramientas utilizadas</a></li>
+    <li><a href="#s2">2. Actividades en que se usó IA</a></li>
+    <li><a href="#s3">3. Prompts y resultados</a></li>
+    <li><a href="#s4">4. Capturas y evidencias</a></li>
+    <li><a href="#s5">5. Beneficios obtenidos</a></li>
+    <li><a href="#s6">6. Limitaciones encontradas</a></li>
+    <li><a href="#s7">7. Porcentaje estimado de apoyo</a></li>
+  </ol>
+</nav>
+
+<!-- ============================================================ -->
+<h1 id="s1">1. Herramientas utilizadas</h1>
+<table>
+  <caption>Herramientas de inteligencia artificial</caption>
+  <thead><tr><th style="width:30%">Herramienta</th><th>Uso</th></tr></thead>
+  <tbody>
+    <tr><td>Claude Code, con el modelo Claude Opus 5.5 (Anthropic)</td><td>Asistente en la terminal, con acceso al repositorio del proyecto. Se usó para analizar las bases, proponer la arquitectura, definir el contrato de API, programar la interfaz web y el servidor de Apps Script, elaborar diagramas y dar formato a la documentación. Cada resultado fue revisado por el equipo antes de integrarse.</td></tr>
+  </tbody>
+</table>
+<p>Claude Code guarda localmente el registro de cada sesión: prompts, acciones realizadas y respuestas. Las evidencias de este documento provienen de ese registro y del historial público del repositorio.</p>
+
+<!-- ============================================================ -->
+<h1 id="s2" class="sin-salto" style="margin-top:20pt">2. Actividades en que se usó IA</h1>
+<p>El uso de la IA se concentró en la investigación y la implementación del proyecto. El trabajo de campo, las entrevistas, las fotografías, las decisiones de alcance y la validación de los resultados los realizó el equipo.</p>
+<table>
+  <caption>Uso de IA por actividad</caption>
+  <thead><tr><th style="width:18%">Actividad</th><th>Uso de la IA</th><th style="width:30%">Trabajo del equipo</th></tr></thead>
+  <tbody>
+    <tr><td>Análisis</td><td>Primera lectura de las bases, notas de requisitos y detección de ambigüedades.</td><td>Cuestionario, entrevistas, fotografías y validación de requisitos.</td></tr>
+    <tr><td>Diseño</td><td>Propuesta de arquitectura, contrato de API, maquetas de interfaz y diagramas UML.</td><td>Decisiones de autenticación, alcance y cambios a la interfaz.</td></tr>
+    <tr><td>Programación</td><td>Interfaz web (app de caseta y portal) y servidor en Google Apps Script, con pruebas automatizadas.</td><td>Revisión, pruebas, publicación con la cuenta del equipo, configuración de AppSheet y despliegue del backend.</td></tr>
+    <tr><td>Documentación</td><td>Revisión de consistencia entre documentos y código, redacción y formato de los entregables.</td><td>Contenido de entrevistas, fotografías, correcciones y revisión final.</td></tr>
+  </tbody>
+</table>
+
+<!-- ============================================================ -->
+<h1 id="s3">3. Prompts y resultados</h1>
+<table class="compacta">
+  <caption>Registro de sesiones con IA</caption>
+  <thead><tr><th style="width:15%">Fecha y hora</th><th style="width:13%">Actividad</th><th style="width:34%">Prompt</th><th>Resultado</th></tr></thead>
+  <tbody>
+    <tr><td>20/11/2026 20:53</td><td>Análisis y diseño</td><td>«Necesitamos definir un stack para un portal web. Inicia el repositorio github con un nombre de proyecto acorde. Revisa la imagen y docs y toma notas…»</td><td>Lectura de las bases, notas de requisitos, detección de ambigüedades (los dos significados de «tipo de usuario») y repositorio creado (commit <code>8485a5b</code>).</td></tr>
+    <tr><td>20/11/2026 21:03</td><td>Diseño</td><td>«Define un contrato de endpoints para que tanto frontend como backend pueda trabajarlo en simultaneo y no tener disparejos…»</td><td>Contrato de API v1.0 con 22 acciones, permisos por rol y códigos de error (commit <code>2d53d56</code>).</td></tr>
+    <tr><td>20/11/2026 21:46</td><td>Diseño</td><td>«dame sugerencias de interfaces»</td><td>Maquetas de 4 pantallas de caseta y 5 del portal ligadas a las acciones del contrato.</td></tr>
+    <tr><td>20/11/2026 22:10</td><td>Diseño</td><td>«Moderniza el web. Usa la skill de diseño de web que se instaló»</td><td>Rediseño visual con estilo de señalización vial.</td></tr>
+    <tr><td>20/11/2026 22:26</td><td>Diseño</td><td>«En la aplicación de caseta podríamos modernizar el acceso a cerrar sesión o iniciar sesión lo más simple posible pero sin header…»</td><td>Propuesta de «Comenzar turno» y «Terminar turno» para el teléfono compartido de la caseta.</td></tr>
+    <tr><td>20/11/2026 22:42</td><td>Programación</td><td>«Empieza haciendo el frontend en carpeta front-end y portal-admin, app-caseta…»</td><td>App de caseta y portal de administración en React y TypeScript, revisados con TypeScript y compilación (commit <code>d8df75e</code>).</td></tr>
+    <tr><td>21/11/2026 07:40</td><td>Integración</td><td>«Revisa si hay actualizaciones de otra rama o algo»</td><td>Revisión de la rama del backend e integración de las ramas en <code>main</code>.</td></tr>
+    <tr><td>21/11/2026 07:45</td><td>Documentación</td><td>«revisa el pdf y una imagen que agregue. Son entregables…»</td><td>Contraste del borrador con el sistema, diagramas UML y redacción de los entregables en formato de informe.</td></tr>
+    <tr><td>21/11/2026 08:47</td><td>Programación</td><td>«Y para lo de apps scripts. Es facil de implementar como para que tu lo hagas?»</td><td>Servidor de Apps Script con las 22 acciones sobre Google Sheets, 49 pruebas automatizadas y publicación como aplicación web (commit <code>f9bb763</code>).</td></tr>
+  </tbody>
+</table>
+
+<!-- ============================================================ -->
+<h1 id="s4">4. Capturas y evidencias</h1>
+<p>Las figuras 1 a 4 son extractos del registro local de las sesiones: muestran el prompt textual y un resumen del resultado. La Figura 5 es una captura del repositorio público, donde los commits generados con apoyo de la IA llevan la marca <code>Co-Authored-By: Claude Opus 5.5</code>.</p>
+<figure>
+  <img src="img/ia-extracto-e1.png" alt="Extracto de la sesión del contrato de API" style="width:84%">
+  <figcaption>Extracto del registro de la sesión: definición del contrato de API.</figcaption>
+</figure>
+<figure>
+  <img src="img/ia-extracto-e2.png" alt="Extracto de la sesión de programación del front-end" style="width:84%">
+  <figcaption>Extracto del registro de la sesión: programación de la interfaz web.</figcaption>
+</figure>
+<figure>
+  <img src="img/ia-extracto-e4.png" alt="Extracto de la sesión del servidor de Apps Script" style="width:84%">
+  <figcaption>Extracto del registro de la sesión: servidor en Google Apps Script.</figcaption>
+</figure>
+<figure>
+  <img src="img/ia-extracto-e3.png" alt="Extracto de la sesión de documentación" style="width:84%">
+  <figcaption>Extracto del registro de la sesión: revisión y redacción de los entregables.</figcaption>
+</figure>
+<figure class="captura">
+  <img src="img/ia-commit-github.png" alt="Commit del repositorio con coautoría de Claude">
+  <figcaption>Commit <code>d8df75e</code> en el repositorio público, con la marca <code>Co-Authored-By: Claude Opus 5.5</code>.</figcaption>
+</figure>
+
+<!-- ============================================================ -->
+<h1 id="s5">5. Beneficios obtenidos</h1>
+<ul>
+  <li>La interfaz y el servidor se construyeron en paralelo contra un contrato común, sin desajustes de nombres ni de datos.</li>
+  <li>Las ambigüedades de las bases (por ejemplo, los dos significados de «tipo de usuario») se detectaron desde el inicio.</li>
+  <li>El servidor se probó con casos automatizados antes de publicarse.</li>
+  <li>Los documentos se contrastaron con el sistema construido, lo que permitió corregir requisitos que no coincidían.</li>
+</ul>
+
+<h1 id="s6" class="sin-salto" style="margin-top:20pt">6. Limitaciones encontradas</h1>
+<ul>
+  <li>La IA no sustituye el trabajo de campo: las entrevistas, sus respuestas y las decisiones sobre el alcance son del equipo.</li>
+  <li>Sus propuestas requirieron revisión humana. Varios requisitos del primer borrador no coincidían con lo construido y se movieron a versiones futuras, y algunos datos de las entrevistas se corrigieron contra las notas de campo.</li>
+  <li>Partió de supuestos que el equipo tuvo que corregir; por ejemplo, que las cuentas institucionales de la UAT eran de Google, cuando son de Microsoft.</li>
+  <li>No puede operar cuentas del equipo: la creación del proyecto, la autorización y la publicación requirieron que un integrante iniciara sesión.</li>
+  <li>Las metas de rendimiento y usabilidad deben validarse con el personal de las casetas.</li>
+</ul>
+
+<!-- ============================================================ -->
+<h1 id="s7">7. Porcentaje estimado de apoyo</h1>
+<p>Estimación del equipo a partir del registro de sesiones y del historial del repositorio. Se considera apoyo de la IA las versiones iniciales que generó, y trabajo del equipo el trabajo de campo, las decisiones, la revisión, las pruebas y las correcciones.</p>
+<table>
+  <caption>Estimación del apoyo de la IA por actividad</caption>
+  <thead><tr><th style="width:22%">Actividad</th><th class="c" style="width:14%">Porcentaje</th><th>Base de la estimación</th></tr></thead>
+  <tbody>
+    <tr><td>Análisis</td><td class="c">35 %</td><td>La IA hizo la primera lectura de las bases y propuso requisitos; el cuestionario, las entrevistas, las fotografías y la validación de requisitos fueron del equipo.</td></tr>
+    <tr><td>Diseño</td><td class="c">55 %</td><td>La IA propuso el contrato de API, las maquetas y los diagramas; el equipo decidió la autenticación, el alcance y los cambios a la interfaz.</td></tr>
+    <tr><td>Programación</td><td class="c">70 %</td><td>La interfaz web y el servidor de Apps Script se generaron con IA y el equipo los revisó, probó y publicó; la configuración de AppSheet y el despliegue del backend fueron del equipo.</td></tr>
+    <tr><td>Documentación</td><td class="c">60 %</td><td>La IA redactó y dio formato a los documentos a partir del contenido del equipo: entrevistas, fotografías, decisiones y correcciones.</td></tr>
+  </tbody>
+</table>
+
+</body>
+</html>
