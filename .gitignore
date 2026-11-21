@@ -1,0 +1,17 @@
+# Notas internas del equipo
+.notas/
+
+# Bases del hackatón (material de referencia local)
+/HACKATON.pdf
+/reference.jpeg
+
+# Credenciales de clasp
+.clasprc.json
+
+# Node
+node_modules/
+
+# Sistema operativo / editores
+.DS_Store
+Thumbs.db
+*.swp
