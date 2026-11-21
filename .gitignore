@@ -19,6 +19,9 @@ Thumbs.db
 # Front-end: se genera con npm run build
 front-end/dist/
 
+# Apps Script: los HTML se copian desde front-end/dist al publicar
+apps-script/*.html
+
 # clasp: cada quien apunta a su propio proyecto
 .clasp.json
 

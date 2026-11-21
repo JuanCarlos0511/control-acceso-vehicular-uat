@@ -13,6 +13,8 @@ Sistema web para registrar y administrar las entradas y salidas de vehículos en
 ## Estructura
 
 - `docs/contrato-api.md`: contrato entre frontend y backend (acciones, tipos, errores y permisos)
+- `apps-script/`: servidor en Google Apps Script que sirve la caseta y el portal y guarda los datos en Google Sheets (ver su `README.md`)
+- `docs/entregables/`: documentos de entrega (requisitos, manual, evidencias, sistema funcional y código fuente) con sus fuentes, diagramas UML y PDF
 - `front-end/`: app de caseta, portal de administración y código compartido (ver su `README.md`)
 - `appsheet/`: plantilla y configuración del registro vehicular estudiantil en AppSheet, con revisión de expedientes en Google Sheets
 - `appsheet-backend/`: backend en Go (con un analizador de documentos en Python) que valida automáticamente las solicitudes de AppSheet: INE contra el padrón, tarjeta de circulación y consulta a REPUVE. También da de alta a los alumnos que confirman su inscripción con su cuenta institucional (ver su `README.md`)
