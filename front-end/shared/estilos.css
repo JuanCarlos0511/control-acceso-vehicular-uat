@@ -1,0 +1,86 @@
+@import "tailwindcss";
+
+@source "../app-caseta";
+@source "../portal-admin";
+@source ".";
+
+/* Señalización vial: asfalto para entradas, amarillo de pintura vial para salidas. */
+@theme {
+  --font-sans: "Barlow", system-ui, sans-serif;
+  --font-display: "Barlow Condensed", "Barlow", sans-serif;
+
+  --color-asfalto: #2b3036;
+  --color-tinta: #1b1f24;
+  --color-amarillo: #f5b800;
+  --color-concreto: #e4e6e3;
+  --color-gris: #4a5058;
+  --color-regla: #c9cdd2;
+  --color-borde: #8a9098;
+  --color-ok: #0b5a3e;
+  --color-ok-suave: #d7efe4;
+  --color-alerta: #7a3306;
+  --color-alerta-suave: #fce3cf;
+  --color-error: #8f1d14;
+  --color-error-borde: #b42318;
+  --color-error-suave: #fbe3e1;
+  --color-turno: #3dd68c;
+}
+
+@layer base {
+  html {
+    color: var(--color-tinta);
+    font-family: var(--font-sans);
+    font-size: 16px;
+  }
+
+  body {
+    margin: 0;
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--color-amarillo);
+    outline-offset: 2px;
+  }
+
+  a {
+    text-decoration-color: var(--color-amarillo);
+    text-decoration-thickness: 3px;
+    text-underline-offset: 3px;
+  }
+
+  a:hover {
+    text-decoration-thickness: 4px;
+  }
+}
+
+@layer components {
+  .btn {
+    transition:
+      transform 0.12s ease,
+      box-shadow 0.12s ease;
+  }
+
+  .btn:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 3px 0 rgb(27 31 36 / 0.18);
+  }
+
+  .btn:active:not(:disabled) {
+    transform: translateY(1px);
+    box-shadow: none;
+  }
+
+  .btn:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+}

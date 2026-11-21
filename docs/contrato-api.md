@@ -1,4 +1,4 @@
-# Contrato de API — v1.0
+# Contrato de API — v1.1
 
 Acuerdo entre frontend y backend sobre **qué acciones existen, qué reciben, qué devuelven y quién puede usarlas**. Frontend y backend se construyen contra este documento, no contra el código del otro lado.
 
@@ -59,6 +59,12 @@ function api(solicitud) {
   }
 }
 ```
+
+**Servir el frontend.** Un solo despliegue del Web App sirve las dos apps. El frontend entrega dos archivos HTML ya compilados: `app-caseta.html` y `portal-admin.html` (ver `front-end/README.md`).
+
+- La URL `/exec` sin parámetros abre la app de caseta. Con `?app=admin` abre el portal de administración.
+- `doGet` usa `HtmlService.createHtmlOutputFromFile(...)`, nunca `createTemplateFromFile`, porque el JS minificado puede contener `<?`.
+- `doGet` agrega `.addMetaTag('viewport', 'width=device-width, initial-scale=1')` para que la app se vea bien en celular.
 
 ---
 
@@ -408,7 +414,7 @@ datos: { desde: Fecha; hasta: Fecha; casetaId?: string; tipo?: TipoMovimiento } 
 respuesta: {
   porHora: Array<{ hora: number; entradas: number; salidas: number }>;      // 24 elementos, hora 0–23
   porDiaSemana: Array<{ dia: number; entradas: number; salidas: number }>;  // 7 elementos, 1 = lunes … 7 = domingo
-  matriz: number[][];                                // [dia − 1][hora], 7 × 24, para un mapa de calor
+  matriz: number[][];                                // [dia − 1][hora], 7 × 24: total de movimientos del periodo (no promedio)
   pico: { dia: number; hora: number; total: number } | null;  // null si no hay movimientos
 }
 ```
@@ -479,7 +485,7 @@ Datos ficticios. El frontend puede usarlos como respuestas simuladas mientras el
       { "id": "cas-2", "nombre": "Caseta 2", "ubicacion": "Acceso norte", "activa": true },
       { "id": "cas-3", "nombre": "Caseta 3", "ubicacion": "Acceso sur", "activa": true }
     ],
-    "servidor": { "zonaHoraria": "America/Monterrey", "ahora": "2026-11-20T07:41:55-06:00", "versionContrato": "1.0" }
+    "servidor": { "zonaHoraria": "America/Monterrey", "ahora": "2026-11-20T07:41:55-06:00", "versionContrato": "1.1" }
   }
 }
 ```
@@ -592,3 +598,4 @@ Datos ficticios. El frontend puede usarlos como respuestas simuladas mientras el
 | Versión | Fecha | Cambio |
 |---|---|---|
 | 1.0 | 2026-11-20 | Versión inicial |
+| 1.1 | 2026-11-20 | Cómo se sirve el frontend (`?app=admin`, `createHtmlOutputFromFile`, viewport). Se aclara que `reportes.afluencia.matriz` trae totales del periodo, no promedios. Sin cambios en acciones ni campos. |

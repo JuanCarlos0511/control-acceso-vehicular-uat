@@ -6,9 +6,14 @@ Sistema web para registrar y administrar las entradas y salidas de vehículos en
 
 - **Google Apps Script** (V8), publicado como Web App
 - **Google Sheets** como base de datos
-- **HTML + Bootstrap 5 + JavaScript** para la interfaz, responsiva para móvil y escritorio
-- **Chart.js** para gráficas; **SheetJS** y **jsPDF** para exportar a Excel y PDF
+- **React + TypeScript + Vite + Tailwind** para las dos interfaces: la app de caseta (celular) y el portal de administración (escritorio). Cada una se compila en un solo HTML que sirve Apps Script
+- **SheetJS** y **jsPDF** para exportar a Excel y PDF
 - **clasp** para sincronizar este repositorio con el proyecto de Apps Script
+
+## Estructura
+
+- `docs/contrato-api.md`: contrato entre frontend y backend (acciones, tipos, errores y permisos)
+- `front-end/`: app de caseta, portal de administración y código compartido (ver su `README.md`)
 
 ## Módulos
 
